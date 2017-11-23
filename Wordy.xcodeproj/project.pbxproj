@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743181FC66700006A06D1 /* AppDelegate.swift */; };
+		FC27431B1FC66700006A06D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27431A1FC66700006A06D1 /* ViewController.swift */; };
+		FC27431E1FC66700006A06D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC27431C1FC66700006A06D1 /* Main.storyboard */; };
+		FC2743211FC66700006A06D1 /* Wordy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FC27431F1FC66700006A06D1 /* Wordy.xcdatamodeld */; };
+		FC2743231FC66700006A06D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC2743221FC66700006A06D1 /* Assets.xcassets */; };
+		FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */; };
+		FC2743311FC66700006A06D1 /* WordyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743301FC66700006A06D1 /* WordyTests.swift */; };
+		FC27433C1FC66700006A06D1 /* WordyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27433B1FC66700006A06D1 /* WordyUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FC27432D1FC66700006A06D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC27430D1FC66700006A06D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FC2743141FC66700006A06D1;
+			remoteInfo = Wordy;
+		};
+		FC2743381FC66700006A06D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC27430D1FC66700006A06D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FC2743141FC66700006A06D1;
+			remoteInfo = Wordy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FC2743151FC66700006A06D1 /* Wordy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wordy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC2743181FC66700006A06D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FC27431A1FC66700006A06D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FC27431D1FC66700006A06D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FC2743201FC66700006A06D1 /* Wordy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wordy.xcdatamodel; sourceTree = "<group>"; };
+		FC2743221FC66700006A06D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FC2743251FC66700006A06D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FC2743271FC66700006A06D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC27432C1FC66700006A06D1 /* WordyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC2743301FC66700006A06D1 /* WordyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyTests.swift; sourceTree = "<group>"; };
+		FC2743321FC66700006A06D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC2743371FC66700006A06D1 /* WordyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC27433B1FC66700006A06D1 /* WordyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyUITests.swift; sourceTree = "<group>"; };
+		FC27433D1FC66700006A06D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FC2743121FC66700006A06D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC2743291FC66700006A06D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC2743341FC66700006A06D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FC27430C1FC66700006A06D1 = {
+			isa = PBXGroup;
+			children = (
+				FC2743171FC66700006A06D1 /* Wordy */,
+				FC27432F1FC66700006A06D1 /* WordyTests */,
+				FC27433A1FC66700006A06D1 /* WordyUITests */,
+				FC2743161FC66700006A06D1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FC2743161FC66700006A06D1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC2743151FC66700006A06D1 /* Wordy.app */,
+				FC27432C1FC66700006A06D1 /* WordyTests.xctest */,
+				FC2743371FC66700006A06D1 /* WordyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FC2743171FC66700006A06D1 /* Wordy */ = {
+			isa = PBXGroup;
+			children = (
+				FC2743181FC66700006A06D1 /* AppDelegate.swift */,
+				FC27431A1FC66700006A06D1 /* ViewController.swift */,
+				FC27431C1FC66700006A06D1 /* Main.storyboard */,
+				FC2743221FC66700006A06D1 /* Assets.xcassets */,
+				FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */,
+				FC2743271FC66700006A06D1 /* Info.plist */,
+				FC27431F1FC66700006A06D1 /* Wordy.xcdatamodeld */,
+			);
+			path = Wordy;
+			sourceTree = "<group>";
+		};
+		FC27432F1FC66700006A06D1 /* WordyTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC2743301FC66700006A06D1 /* WordyTests.swift */,
+				FC2743321FC66700006A06D1 /* Info.plist */,
+			);
+			path = WordyTests;
+			sourceTree = "<group>";
+		};
+		FC27433A1FC66700006A06D1 /* WordyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FC27433B1FC66700006A06D1 /* WordyUITests.swift */,
+				FC27433D1FC66700006A06D1 /* Info.plist */,
+			);
+			path = WordyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FC2743141FC66700006A06D1 /* Wordy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC2743401FC66700006A06D1 /* Build configuration list for PBXNativeTarget "Wordy" */;
+			buildPhases = (
+				FC2743111FC66700006A06D1 /* Sources */,
+				FC2743121FC66700006A06D1 /* Frameworks */,
+				FC2743131FC66700006A06D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Wordy;
+			productName = Wordy;
+			productReference = FC2743151FC66700006A06D1 /* Wordy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FC27432B1FC66700006A06D1 /* WordyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC2743431FC66700006A06D1 /* Build configuration list for PBXNativeTarget "WordyTests" */;
+			buildPhases = (
+				FC2743281FC66700006A06D1 /* Sources */,
+				FC2743291FC66700006A06D1 /* Frameworks */,
+				FC27432A1FC66700006A06D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC27432E1FC66700006A06D1 /* PBXTargetDependency */,
+			);
+			name = WordyTests;
+			productName = WordyTests;
+			productReference = FC27432C1FC66700006A06D1 /* WordyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FC2743361FC66700006A06D1 /* WordyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC2743461FC66700006A06D1 /* Build configuration list for PBXNativeTarget "WordyUITests" */;
+			buildPhases = (
+				FC2743331FC66700006A06D1 /* Sources */,
+				FC2743341FC66700006A06D1 /* Frameworks */,
+				FC2743351FC66700006A06D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC2743391FC66700006A06D1 /* PBXTargetDependency */,
+			);
+			name = WordyUITests;
+			productName = WordyUITests;
+			productReference = FC2743371FC66700006A06D1 /* WordyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FC27430D1FC66700006A06D1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = JC;
+				TargetAttributes = {
+					FC2743141FC66700006A06D1 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					FC27432B1FC66700006A06D1 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FC2743141FC66700006A06D1;
+					};
+					FC2743361FC66700006A06D1 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FC2743141FC66700006A06D1;
+					};
+				};
+			};
+			buildConfigurationList = FC2743101FC66700006A06D1 /* Build configuration list for PBXProject "Wordy" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FC27430C1FC66700006A06D1;
+			productRefGroup = FC2743161FC66700006A06D1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FC2743141FC66700006A06D1 /* Wordy */,
+				FC27432B1FC66700006A06D1 /* WordyTests */,
+				FC2743361FC66700006A06D1 /* WordyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FC2743131FC66700006A06D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */,
+				FC2743231FC66700006A06D1 /* Assets.xcassets in Resources */,
+				FC27431E1FC66700006A06D1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC27432A1FC66700006A06D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC2743351FC66700006A06D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FC2743111FC66700006A06D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC27431B1FC66700006A06D1 /* ViewController.swift in Sources */,
+				FC2743211FC66700006A06D1 /* Wordy.xcdatamodeld in Sources */,
+				FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC2743281FC66700006A06D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC2743311FC66700006A06D1 /* WordyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC2743331FC66700006A06D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC27433C1FC66700006A06D1 /* WordyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FC27432E1FC66700006A06D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FC2743141FC66700006A06D1 /* Wordy */;
+			targetProxy = FC27432D1FC66700006A06D1 /* PBXContainerItemProxy */;
+		};
+		FC2743391FC66700006A06D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FC2743141FC66700006A06D1 /* Wordy */;
+			targetProxy = FC2743381FC66700006A06D1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FC27431C1FC66700006A06D1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FC27431D1FC66700006A06D1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FC2743251FC66700006A06D1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FC27433E1FC66700006A06D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FC27433F1FC66700006A06D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FC2743411FC66700006A06D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				INFOPLIST_FILE = Wordy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = JC.Wordy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FC2743421FC66700006A06D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				INFOPLIST_FILE = Wordy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = JC.Wordy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FC2743441FC66700006A06D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				INFOPLIST_FILE = WordyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = JC.WordyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wordy.app/Wordy";
+			};
+			name = Debug;
+		};
+		FC2743451FC66700006A06D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				INFOPLIST_FILE = WordyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = JC.WordyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wordy.app/Wordy";
+			};
+			name = Release;
+		};
+		FC2743471FC66700006A06D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				INFOPLIST_FILE = WordyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = JC.WordyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Wordy;
+			};
+			name = Debug;
+		};
+		FC2743481FC66700006A06D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				INFOPLIST_FILE = WordyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = JC.WordyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Wordy;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FC2743101FC66700006A06D1 /* Build configuration list for PBXProject "Wordy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC27433E1FC66700006A06D1 /* Debug */,
+				FC27433F1FC66700006A06D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC2743401FC66700006A06D1 /* Build configuration list for PBXNativeTarget "Wordy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC2743411FC66700006A06D1 /* Debug */,
+				FC2743421FC66700006A06D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC2743431FC66700006A06D1 /* Build configuration list for PBXNativeTarget "WordyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC2743441FC66700006A06D1 /* Debug */,
+				FC2743451FC66700006A06D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC2743461FC66700006A06D1 /* Build configuration list for PBXNativeTarget "WordyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC2743471FC66700006A06D1 /* Debug */,
+				FC2743481FC66700006A06D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FC27431F1FC66700006A06D1 /* Wordy.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FC2743201FC66700006A06D1 /* Wordy.xcdatamodel */,
+			);
+			currentVersion = FC2743201FC66700006A06D1 /* Wordy.xcdatamodel */;
+			path = Wordy.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FC27430D1FC66700006A06D1 /* Project object */;
+}
