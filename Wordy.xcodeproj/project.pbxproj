@@ -15,6 +15,8 @@
 		FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */; };
 		FC2743311FC66700006A06D1 /* WordyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743301FC66700006A06D1 /* WordyTests.swift */; };
 		FC27433C1FC66700006A06D1 /* WordyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27433B1FC66700006A06D1 /* WordyUITests.swift */; };
+		FC2743671FC681F3006A06D1 /* Word+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */; };
+		FC2743681FC681F3006A06D1 /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		FC2743371FC66700006A06D1 /* WordyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC27433B1FC66700006A06D1 /* WordyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyUITests.swift; sourceTree = "<group>"; };
 		FC27433D1FC66700006A06D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataClass.swift"; sourceTree = "<group>"; };
+		FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 		FC2743171FC66700006A06D1 /* Wordy */ = {
 			isa = PBXGroup;
 			children = (
+				FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */,
+				FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */,
 				FC2743181FC66700006A06D1 /* AppDelegate.swift */,
 				FC27431A1FC66700006A06D1 /* ViewController.swift */,
 				FC27431C1FC66700006A06D1 /* Main.storyboard */,
@@ -265,6 +271,8 @@
 				FC27431B1FC66700006A06D1 /* ViewController.swift in Sources */,
 				FC2743211FC66700006A06D1 /* Wordy.xcdatamodeld in Sources */,
 				FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */,
+				FC2743681FC681F3006A06D1 /* Word+CoreDataProperties.swift in Sources */,
+				FC2743671FC681F3006A06D1 /* Word+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -418,7 +426,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -431,10 +439,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				DEVELOPMENT_TEAM = KB8WXAHJCD;
 				INFOPLIST_FILE = Wordy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JC.Wordy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JC.Wordy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -446,10 +455,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2BW34YHG9Y;
+				DEVELOPMENT_TEAM = KB8WXAHJCD;
 				INFOPLIST_FILE = Wordy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JC.Wordy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JC.Wordy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
