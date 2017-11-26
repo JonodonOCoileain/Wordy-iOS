@@ -10,9 +10,9 @@ import UIKit
 import CoreData
 import GoogleMobileAds
 
-class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate {
+class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate  {
     
-    var development = false
+    var development = true
     
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var wordsCompletedLabel: UILabel!
@@ -72,30 +72,37 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
         if (self.words.count > 0) {
             self.setUp()
         } else {
-            let url = URL(string: "https://raw.githubusercontent.com/adambom/dictionary/master/dictionary.json")
-            URLSession.shared.dataTask(with:url!, completionHandler: {(data, response, error) in
-                guard let data = data, error == nil else { return }
-            
-                self.saveWordsAndSetUp(wordsData: data)
-                
-            }).resume()
+            if let path = Bundle.main.path(forResource: "dictionary", ofType: "json") {
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    self.saveWordsAndSetUp(wordsData: data)
+                } catch let error{
+                    print(error.localizedDescription)
+                }
+            } else {
+                print("Invalid filename/path.")
+            }
         }
         // Do any additional setup after loading the view, typically from a nib.
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        self.bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        self.bannerView.delegate = self
         
-        addBannerViewToView(bannerView)
+        addBannerViewToView(self.bannerView)
         if (development)  {
-            bannerView.adUnitID = testBannerID
-            interstitial = GADInterstitial(adUnitID: testInterstitialID)
+            self.bannerView.adUnitID = testBannerID
+            self.interstitial = GADInterstitial(adUnitID: testInterstitialID)
         } else {
-            bannerView.adUnitID = bannerID
-            interstitial = GADInterstitial(adUnitID: interstitialID)
+            self.bannerView.adUnitID = bannerID
+            self.interstitial = GADInterstitial(adUnitID: interstitialID)
         }
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        self.bannerView.rootViewController = self
+        self.bannerView.load(GADRequest())
         let request = GADRequest()
-        interstitial.load(request)
-        interstitial = createAndLoadInterstitial()
+        
+        self.interstitial.delegate = self
+        self.interstitial.load(request)
+        self.interstitial = createAndLoadInterstitial()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,7 +112,7 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
     
     func setUp() {
         
-        let randomInt = Int(arc4random_uniform(UInt32(self.words.count)))
+        let randomInt = Int(arc4random_uniform(UInt32(self.words.filter({ $0.passed == false }).count)))
         
         self.word = self.words.filter({ $0.passed == false })[randomInt]
         self.currentIndex = randomInt
@@ -153,7 +160,7 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
             self.buttonD.isHidden = false
             
             self.wordsCompletedLabel.text = "\(self.words.count - self.words.filter({ $0.passed == false }).count) of \(self.words.count) correct"
-            self.progressView.setProgress((Float(self.words.count - self.words.filter({ $0.passed == false }).count)/Float(self.words.count) * 100), animated: true)
+            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
         }
     }
 
@@ -170,7 +177,7 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
                 appDelegate.persistentContainer.viewContext
         
             do {
-                let wordsDictionary = try JSONSerialization.jsonObject(with: wordsData, options: .allowFragments) as! [String:String]
+                let wordsDictionary = try JSONSerialization.jsonObject(with: wordsData, options: [.allowFragments, .mutableLeaves]) as! [String:String]
         
                 for wordInDictionary in wordsDictionary {
        
@@ -241,7 +248,21 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
             }
         }
         
-        self.setUp()
+        if (self.words.filter({ $0.passed == false }).count > 0) {
+            self.setUp()
+        } else {
+            DispatchQueue.main.async {
+                self.wordLabel.isHidden = true
+                self.buttonA.isHidden = true
+                self.buttonB.isHidden = true
+                self.buttonC.isHidden = true
+                self.buttonD.isHidden = true
+               
+                self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
+                
+                self.wordsCompletedLabel.text  = "You are word wizard!"
+            }
+        }
         
     }
     
@@ -348,6 +369,32 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         interstitial = createAndLoadInterstitial()
+    }
+    
+    /// Tells the delegate an ad request succeeded.
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("interstitialDidReceiveAd")
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that an interstitial will be presented.
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        print("interstitialWillPresentScreen")
+    }
+    
+    /// Tells the delegate the interstitial is to be animated off the screen.
+    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
+        print("interstitialWillDismissScreen")
+    }
+    
+    /// Tells the delegate that a user click will open another app
+    /// (such as the App Store), backgrounding the current app.
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        print("interstitialWillLeaveApplication")
     }
 }
 

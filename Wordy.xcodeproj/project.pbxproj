@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6DE20D5C164FE6217E2D9565 /* Pods_Wordy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */; };
 		7B88641910C5CF64949DB744 /* Pods_WordyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */; };
+		FC061AF01FCB40C20078D005 /* dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FC061AEF1FCB40C20078D005 /* dictionary.json */; };
 		FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743181FC66700006A06D1 /* AppDelegate.swift */; };
 		FC27431B1FC66700006A06D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27431A1FC66700006A06D1 /* ViewController.swift */; };
 		FC27431E1FC66700006A06D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC27431C1FC66700006A06D1 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		675868CB6EA1B3DA8EA28DAD /* Pods-WordyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordyUITests/Pods-WordyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wordy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC061AEF1FCB40C20078D005 /* dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dictionary.json; sourceTree = "<group>"; };
 		FC2743151FC66700006A06D1 /* Wordy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wordy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2743181FC66700006A06D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC27431A1FC66700006A06D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		FC2743171FC66700006A06D1 /* Wordy */ = {
 			isa = PBXGroup;
 			children = (
+				FC061AEF1FCB40C20078D005 /* dictionary.json */,
 				FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */,
 				FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */,
 				FC2743181FC66700006A06D1 /* AppDelegate.swift */,
@@ -291,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */,
+				FC061AF01FCB40C20078D005 /* dictionary.json in Resources */,
 				FC2743231FC66700006A06D1 /* Assets.xcassets in Resources */,
 				FC27431E1FC66700006A06D1 /* Main.storyboard in Resources */,
 			);
