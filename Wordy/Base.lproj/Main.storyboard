@@ -24,13 +24,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fl9-Hr-t1Q" userLabel="Words Completed Label">
-                                <rect key="frame" x="0.0" y="60" width="414" height="20"/>
+                                <rect key="frame" x="0.0" y="76" width="414" height="20"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Word" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61x-Q5-UvD" userLabel="Word Label">
-                                <rect key="frame" x="16" y="88" width="382" height="20"/>
+                                <rect key="frame" x="16" y="104" width="382" height="20"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -103,6 +103,13 @@
                                     <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c1r-Bo-ant"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YSM-Qv-FgG">
+                                <rect key="frame" x="129.66666666666666" y="132" width="154.99999999999997" height="2"/>
+                                <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="155" id="p9E-LB-kTX"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -117,10 +124,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RcF-QY-GuM" secondAttribute="bottom" constant="8" id="YW5-U7-eOk"/>
                             <constraint firstItem="OU9-xA-edh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="61x-Q5-UvD" secondAttribute="bottom" constant="8" id="ZEF-0A-fg1"/>
                             <constraint firstItem="61x-Q5-UvD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="bJf-vq-Jyt"/>
+                            <constraint firstItem="YSM-Qv-FgG" firstAttribute="top" secondItem="61x-Q5-UvD" secondAttribute="bottom" constant="8" id="cwi-h5-D2C"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="E7U-QC-aho" secondAttribute="trailing" constant="16" id="d9h-gU-FK1"/>
                             <constraint firstItem="RcF-QY-GuM" firstAttribute="top" secondItem="FPs-D3-idt" secondAttribute="bottom" constant="8" id="fpT-xN-yOC"/>
+                            <constraint firstItem="YSM-Qv-FgG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fzD-Wt-cvU"/>
                             <constraint firstItem="Fl9-Hr-t1Q" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hD6-Wa-Q27"/>
-                            <constraint firstItem="Fl9-Hr-t1Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="lNV-IZ-Ih0"/>
+                            <constraint firstItem="Fl9-Hr-t1Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="56" id="lNV-IZ-Ih0"/>
                             <constraint firstItem="OU9-xA-edh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="mEy-xJ-i8m"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OU9-xA-edh" secondAttribute="trailing" constant="16" id="mab-gY-hWw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RcF-QY-GuM" secondAttribute="trailing" constant="16" id="qgh-Wq-KSE"/>
@@ -133,6 +142,7 @@
                         <outlet property="buttonB" destination="E7U-QC-aho" id="gAB-nz-aNz"/>
                         <outlet property="buttonC" destination="FPs-D3-idt" id="TKl-ob-0zb"/>
                         <outlet property="buttonD" destination="RcF-QY-GuM" id="BaX-9r-TSA"/>
+                        <outlet property="progressView" destination="YSM-Qv-FgG" id="hHa-Zt-CtF"/>
                         <outlet property="wordLabel" destination="61x-Q5-UvD" id="Dem-71-92s"/>
                         <outlet property="wordsCompletedLabel" destination="Fl9-Hr-t1Q" id="Pjf-2P-YQ3"/>
                     </connections>

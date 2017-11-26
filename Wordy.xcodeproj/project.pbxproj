@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6DE20D5C164FE6217E2D9565 /* Pods_Wordy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */; };
+		7B88641910C5CF64949DB744 /* Pods_WordyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */; };
 		FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743181FC66700006A06D1 /* AppDelegate.swift */; };
 		FC27431B1FC66700006A06D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27431A1FC66700006A06D1 /* ViewController.swift */; };
 		FC27431E1FC66700006A06D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC27431C1FC66700006A06D1 /* Main.storyboard */; };
@@ -17,6 +19,7 @@
 		FC27433C1FC66700006A06D1 /* WordyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27433B1FC66700006A06D1 /* WordyUITests.swift */; };
 		FC2743671FC681F3006A06D1 /* Word+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */; };
 		FC2743681FC681F3006A06D1 /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */; };
+		FD868D9A36CBD4739EC3E1ED /* Pods_WordyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E39422D45EE6780A69ED426 /* Pods_WordyUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F321253159162ADB3CC5525 /* Pods-WordyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordyUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordyUITests/Pods-WordyUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		13BA76294413DF62FEBC5E0F /* Pods-Wordy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wordy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wordy/Pods-Wordy.release.xcconfig"; sourceTree = "<group>"; };
+		1D60048C4A02D63EF698AA96 /* Pods-Wordy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wordy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wordy/Pods-Wordy.debug.xcconfig"; sourceTree = "<group>"; };
+		3E39422D45EE6780A69ED426 /* Pods_WordyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44DB6369054ECFBC3C08ACD0 /* Pods-WordyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordyTests/Pods-WordyTests.release.xcconfig"; sourceTree = "<group>"; };
+		49950A05A87270FD67A69334 /* Pods-WordyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WordyTests/Pods-WordyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		675868CB6EA1B3DA8EA28DAD /* Pods-WordyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordyUITests/Pods-WordyUITests.release.xcconfig"; sourceTree = "<group>"; };
+		97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wordy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2743151FC66700006A06D1 /* Wordy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wordy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2743181FC66700006A06D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC27431A1FC66700006A06D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DE20D5C164FE6217E2D9565 /* Pods_Wordy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B88641910C5CF64949DB744 /* Pods_WordyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +88,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD868D9A36CBD4739EC3E1ED /* Pods_WordyUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		002708DD70BA59E0165FC799 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1D60048C4A02D63EF698AA96 /* Pods-Wordy.debug.xcconfig */,
+				13BA76294413DF62FEBC5E0F /* Pods-Wordy.release.xcconfig */,
+				49950A05A87270FD67A69334 /* Pods-WordyTests.debug.xcconfig */,
+				44DB6369054ECFBC3C08ACD0 /* Pods-WordyTests.release.xcconfig */,
+				0F321253159162ADB3CC5525 /* Pods-WordyUITests.debug.xcconfig */,
+				675868CB6EA1B3DA8EA28DAD /* Pods-WordyUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		197DFAE91C87ACA8546A867B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */,
+				9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */,
+				3E39422D45EE6780A69ED426 /* Pods_WordyUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FC27430C1FC66700006A06D1 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +125,8 @@
 				FC27432F1FC66700006A06D1 /* WordyTests */,
 				FC27433A1FC66700006A06D1 /* WordyUITests */,
 				FC2743161FC66700006A06D1 /* Products */,
+				002708DD70BA59E0165FC799 /* Pods */,
+				197DFAE91C87ACA8546A867B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,9 +181,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC2743401FC66700006A06D1 /* Build configuration list for PBXNativeTarget "Wordy" */;
 			buildPhases = (
+				519EAEEF03C0C45C01EC7844 /* [CP] Check Pods Manifest.lock */,
 				FC2743111FC66700006A06D1 /* Sources */,
 				FC2743121FC66700006A06D1 /* Frameworks */,
 				FC2743131FC66700006A06D1 /* Resources */,
+				CC10FE8DB67A344BBB5A071F /* [CP] Embed Pods Frameworks */,
+				E5632AA0601F4B0F92001BDA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -158,9 +201,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC2743431FC66700006A06D1 /* Build configuration list for PBXNativeTarget "WordyTests" */;
 			buildPhases = (
+				421672845C1ACEBF54A7F32A /* [CP] Check Pods Manifest.lock */,
 				FC2743281FC66700006A06D1 /* Sources */,
 				FC2743291FC66700006A06D1 /* Frameworks */,
 				FC27432A1FC66700006A06D1 /* Resources */,
+				CF66C1C4940C16977BD91934 /* [CP] Embed Pods Frameworks */,
+				E3B49121002C077136C4E409 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -176,9 +222,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC2743461FC66700006A06D1 /* Build configuration list for PBXNativeTarget "WordyUITests" */;
 			buildPhases = (
+				0A483FF68FB1A3FE16D1DEFC /* [CP] Check Pods Manifest.lock */,
 				FC2743331FC66700006A06D1 /* Sources */,
 				FC2743341FC66700006A06D1 /* Frameworks */,
 				FC2743351FC66700006A06D1 /* Resources */,
+				C8900513779D37ACDB833929 /* [CP] Embed Pods Frameworks */,
+				F215B0AADAA49F6E936EB1EB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -262,6 +311,153 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A483FF68FB1A3FE16D1DEFC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WordyUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		421672845C1ACEBF54A7F32A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WordyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		519EAEEF03C0C45C01EC7844 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Wordy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8900513779D37ACDB833929 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WordyUITests/Pods-WordyUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC10FE8DB67A344BBB5A071F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wordy/Pods-Wordy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF66C1C4940C16977BD91934 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WordyTests/Pods-WordyTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3B49121002C077136C4E409 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WordyTests/Pods-WordyTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5632AA0601F4B0F92001BDA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wordy/Pods-Wordy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F215B0AADAA49F6E936EB1EB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WordyUITests/Pods-WordyUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FC2743111FC66700006A06D1 /* Sources */ = {
@@ -436,6 +632,7 @@
 		};
 		FC2743411FC66700006A06D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D60048C4A02D63EF698AA96 /* Pods-Wordy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -452,6 +649,7 @@
 		};
 		FC2743421FC66700006A06D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13BA76294413DF62FEBC5E0F /* Pods-Wordy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -468,6 +666,7 @@
 		};
 		FC2743441FC66700006A06D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49950A05A87270FD67A69334 /* Pods-WordyTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -485,6 +684,7 @@
 		};
 		FC2743451FC66700006A06D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44DB6369054ECFBC3C08ACD0 /* Pods-WordyTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -502,6 +702,7 @@
 		};
 		FC2743471FC66700006A06D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F321253159162ADB3CC5525 /* Pods-WordyUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -518,6 +719,7 @@
 		};
 		FC2743481FC66700006A06D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 675868CB6EA1B3DA8EA28DAD /* Pods-WordyUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -8,9 +8,11 @@
 
 import UIKit
 import CoreData
+import GoogleMobileAds
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate {
+    
+    var development = false
     
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var wordsCompletedLabel: UILabel!
@@ -20,21 +22,29 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonC: UIButton!
     @IBOutlet weak var buttonD: UIButton!
     
+    var words:[Word] = []
+    var word:Word = Word()
+    
     var allWords:[String:String] = [:]
     var wordsRemaining:[String:String] = [:]
     
-    var currentWord = ""
-    var currentDefinition = ""
     var currentIndex = -1
+    var wrongCounter = 0
     
     var saving = false
     
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    var bannerView: GADBannerView!
+    var interstitial: GADInterstitial!
+    var testBannerID = "ca-app-pub-3940256099942544/2934735716"
+    var testInterstitialID = "ca-app-pub-3940256099942544/4411468910"
+    var bannerID = "ca-app-pub-5330908290289818/7870941385"
+    var interstitialID = "ca-app-pub-5330908290289818/9635449191"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(save), name: .UIApplicationWillTerminate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(save), name: .UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(save), name: .UIApplicationDidEnterBackground, object: nil)
+        self.progressView.setProgress(0, animated: true)
         
         self.wordLabel.isHidden = true
         self.buttonA.isHidden = true
@@ -42,34 +52,50 @@ class ViewController: UIViewController {
         self.buttonC.isHidden = true
         self.buttonD.isHidden = true
         
-        if ((UserDefaults.standard.object(forKey: "wordsRemaining")) != nil) {
-            
-            self.allWords = UserDefaults.standard.object(forKey: "allWords") as! [String : String]
-            self.wordsRemaining = UserDefaults.standard.object(forKey: "wordsRemaining") as! [String : String]
-            self.currentWord = UserDefaults.standard.object(forKey: "currentWord") as! String
-            self.currentDefinition = UserDefaults.standard.object(forKey: "currentDefinition") as! String
-            self.currentIndex = UserDefaults.standard.object(forKey: "currentIndex") as! Int
-            
-            self.setup()
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Word")
+        
+        do {
+            self.words = try managedContext.fetch(fetchRequest) as! [Word]
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        if (self.words.count > 0) {
+            self.setUp()
         } else {
             let url = URL(string: "https://raw.githubusercontent.com/adambom/dictionary/master/dictionary.json")
             URLSession.shared.dataTask(with:url!, completionHandler: {(data, response, error) in
                 guard let data = data, error == nil else { return }
             
-                do {
-                    self.wordsRemaining = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:String]
-                    self.allWords = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:String]
-                    DispatchQueue.global(qos: .background).async {
-                        UserDefaults.standard.set(self.allWords, forKey: "allWords")
-                    }
-                    self.saveWords(wordsData: data)
-                    self.setup()
-                } catch let error as NSError {
-                    print(error)
-                }
+                self.saveWordsAndSetUp(wordsData: data)
+                
             }).resume()
         }
         // Do any additional setup after loading the view, typically from a nib.
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        
+        addBannerViewToView(bannerView)
+        if (development)  {
+            bannerView.adUnitID = testBannerID
+            interstitial = GADInterstitial(adUnitID: testInterstitialID)
+        } else {
+            bannerView.adUnitID = bannerID
+            interstitial = GADInterstitial(adUnitID: interstitialID)
+        }
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        let request = GADRequest()
+        interstitial.load(request)
+        interstitial = createAndLoadInterstitial()
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,47 +103,44 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setup() {
-
-        let randomInt = Int(arc4random_uniform(UInt32(self.wordsRemaining.count)))
+    func setUp() {
         
-        self.currentWord = Array(self.wordsRemaining.keys)[randomInt]
-        self.currentDefinition = self.wordsRemaining[currentWord]!
+        let randomInt = Int(arc4random_uniform(UInt32(self.words.count)))
+        
+        self.word = self.words.filter({ $0.passed == false })[randomInt]
         self.currentIndex = randomInt
         
         DispatchQueue.global(qos: .background).async {
-            UserDefaults.standard.set(self.currentIndex, forKey: "currentIndex")
-            UserDefaults.standard.set(self.currentWord, forKey: "currentWord")
-            UserDefaults.standard.set(self.currentDefinition, forKey: "currentDefinition")
+            self.saveData()
         }
         
         let randomButton = Int(arc4random_uniform(4))
-
+        
         DispatchQueue.main.async {
-            self.wordLabel.text = self.currentWord
+            self.wordLabel.text = self.word.word
             
             switch (randomButton) {
-                case 0:
-                    self.buttonA.setTitle(self.currentDefinition, for: .normal)
-                    self.buttonB.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonC.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonD.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                case 1:
-                    self.buttonB.setTitle(self.currentDefinition, for: .normal)
-                    self.buttonA.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonC.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonD.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                case 2:
-                    self.buttonC.setTitle(self.currentDefinition, for: .normal)
-                    self.buttonA.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonB.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonD.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                case 3:
-                    self.buttonD.setTitle(self.currentDefinition, for: .normal)
-                    self.buttonA.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonB.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                    self.buttonC.setTitle(Array(self.allWords.values)[Int(arc4random_uniform(UInt32(self.allWords.count)))], for: .normal)
-                default: break
+            case 0:
+                self.buttonA.setTitle(self.word.definition, for: .normal)
+                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+            case 1:
+                self.buttonB.setTitle(self.word.definition, for: .normal)
+                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+            case 2:
+                self.buttonC.setTitle(self.word.definition, for: .normal)
+                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+            case 3:
+                self.buttonD.setTitle(self.word.definition, for: .normal)
+                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+            default: break
                 
             }
         }
@@ -129,22 +152,12 @@ class ViewController: UIViewController {
             self.buttonC.isHidden = false
             self.buttonD.isHidden = false
             
-            self.wordsCompletedLabel.text = "\(self.allWords.count - self.wordsRemaining.count) of \(self.allWords.count) correct"
+            self.wordsCompletedLabel.text = "\(self.words.count - self.words.filter({ $0.passed == false }).count) of \(self.words.count) correct"
+            self.progressView.setProgress((Float(self.words.count - self.words.filter({ $0.passed == false }).count)/Float(self.words.count) * 100), animated: true)
         }
     }
 
-
-    @objc func save(_ notification: NSNotification) {
-        if (!saving) {
-            self.saving = true
-            DispatchQueue.global(qos: .background).async {
-                UserDefaults.standard.set(self.wordsRemaining, forKey: "wordsRemaining")
-                self.saving = false
-            }
-        }
-    }
-    
-    func saveWords(wordsData: Data) {
+    func saveWordsAndSetUp(wordsData: Data) {
         var counter = 0
         
         DispatchQueue.main.async {
@@ -172,6 +185,8 @@ class ViewController: UIViewController {
                     wordInContext.setValue(wordInDictionary.value, forKeyPath: "definition")
                     wordInContext.setValue(counter, forKeyPath: "id")
                     wordInContext.setValue(false, forKeyPath: "passed")
+                    
+                    self.words.append(wordInContext as! Word)
                 
                     counter += 1
                 }
@@ -185,19 +200,154 @@ class ViewController: UIViewController {
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
+            self.setUp()
+        }
+    }
+    
+    func saveData() {
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
         }
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-        if(sender.title(for: .normal) == self.currentDefinition) {
-            self.wordsRemaining.removeValue(forKey: self.currentWord)
+        if(sender.title(for: .normal) == self.word.definition) {
+            self.word.passed = true
+            self.saveData()
             self.wordsCompletedLabel.textColor = UIColor.green
+            wrongCounter = 0
         } else {
             self.wordsCompletedLabel.textColor = UIColor.red
+            wrongCounter += 1
+            if (wrongCounter >= 3) {
+                if interstitial.isReady {
+                    interstitial.present(fromRootViewController: self)
+                } else {
+                    print("Ad wasn't ready")
+                }
+                wrongCounter = 0
+            }
         }
         
-        self.setup()
+        self.setUp()
         
+    }
+    
+    //#pragma mark - Google Mobile Ad Banner
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        if #available(iOS 11.0, *) {
+            // In iOS 11, we need to constrain the view to the safe area.
+            positionBannerViewFullWidthAtTopOfSafeArea(bannerView)
+        }
+        else {
+            // In lower iOS versions, safe area is not available so we use
+            // bottom layout guide and view edges.
+            positionBannerViewFullWidthAtTopOfView(bannerView)
+        }
+    }
+    
+    // MARK: - view positioning
+    @available (iOS 11, *)
+    func positionBannerViewFullWidthAtTopOfSafeArea(_ bannerView: UIView) {
+        // Position the banner. Stick it to the bottom of the Safe Area.
+        // Make it constrained to the edges of the safe area.
+        let guide = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            guide.leftAnchor.constraint(equalTo: bannerView.leftAnchor),
+            guide.rightAnchor.constraint(equalTo: bannerView.rightAnchor),
+            guide.topAnchor.constraint(equalTo: bannerView.topAnchor)
+            ])
+    }
+    
+    func positionBannerViewFullWidthAtTopOfView(_ bannerView: UIView) {
+        view.addConstraint(NSLayoutConstraint(item: bannerView,
+                                              attribute: .leading,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .leading,
+                                              multiplier: 1,
+                                              constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: bannerView,
+                                              attribute: .trailing,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .trailing,
+                                              multiplier: 1,
+                                              constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: bannerView,
+                                              attribute: .top,
+                                              relatedBy: .equal,
+                                              toItem: topLayoutGuide,
+                                              attribute: .top,
+                                              multiplier: 1,
+                                              constant: 0))
+    }
+    
+    /// Tells the delegate an ad request loaded an ad.
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+        // Add banner to view and add constraints as above.
+        addBannerViewToView(bannerView)
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+        })
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func adView(_ bannerView: GADBannerView,
+                didFailToReceiveAdWithError error: GADRequestError) {
+        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that a full screen view will be presented in response
+    /// to the user clicking on an ad.
+    func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        print("adViewWillPresentScreen")
+    }
+    
+    /// Tells the delegate that the full screen view will be dismissed.
+    func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+        print("adViewWillDismissScreen")
+    }
+    
+    /// Tells the delegate that the full screen view has been dismissed.
+    func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        print("adViewDidDismissScreen")
+    }
+    
+    /// Tells the delegate that a user click will open another app (such as
+    /// the App Store), backgrounding the current app.
+    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        print("adViewWillLeaveApplication")
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        var interstitial = GADInterstitial(adUnitID: interstitialID)
+        if (development) {
+            interstitial = GADInterstitial(adUnitID: testInterstitialID)
+        }
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
     }
 }
 
