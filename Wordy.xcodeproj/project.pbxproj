@@ -10,9 +10,13 @@
 		6DE20D5C164FE6217E2D9565 /* Pods_Wordy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */; };
 		7B88641910C5CF64949DB744 /* Pods_WordyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */; };
 		FC061AF01FCB40C20078D005 /* dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FC061AEF1FCB40C20078D005 /* dictionary.json */; };
+		FC061AF21FCBC7BB0078D005 /* DefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC061AF11FCBC7BB0078D005 /* DefinitionViewController.swift */; };
+		FC061AF41FCBC7D90078D005 /* DefinitionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */; };
+		FC1ADB641FCC99A10051E6EC /* bloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = FC1ADB621FCC99A00051E6EC /* bloop.wav */; };
+		FC1ADB651FCC99A10051E6EC /* bing.wav in Resources */ = {isa = PBXBuildFile; fileRef = FC1ADB631FCC99A10051E6EC /* bing.wav */; };
 		FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743181FC66700006A06D1 /* AppDelegate.swift */; };
-		FC27431B1FC66700006A06D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27431A1FC66700006A06D1 /* ViewController.swift */; };
-		FC27431E1FC66700006A06D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC27431C1FC66700006A06D1 /* Main.storyboard */; };
+		FC27431B1FC66700006A06D1 /* WordyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27431A1FC66700006A06D1 /* WordyViewController.swift */; };
+		FC27431E1FC66700006A06D1 /* WordyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC27431C1FC66700006A06D1 /* WordyViewController.storyboard */; };
 		FC2743211FC66700006A06D1 /* Wordy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FC27431F1FC66700006A06D1 /* Wordy.xcdatamodeld */; };
 		FC2743231FC66700006A06D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC2743221FC66700006A06D1 /* Assets.xcassets */; };
 		FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */; };
@@ -51,10 +55,14 @@
 		97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wordy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC061AEF1FCB40C20078D005 /* dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dictionary.json; sourceTree = "<group>"; };
+		FC061AF11FCBC7BB0078D005 /* DefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefinitionViewController.swift; sourceTree = "<group>"; };
+		FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DefinitionViewController.storyboard; sourceTree = "<group>"; };
+		FC1ADB621FCC99A00051E6EC /* bloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bloop.wav; sourceTree = "<group>"; };
+		FC1ADB631FCC99A10051E6EC /* bing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bing.wav; sourceTree = "<group>"; };
 		FC2743151FC66700006A06D1 /* Wordy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wordy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2743181FC66700006A06D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FC27431A1FC66700006A06D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FC27431D1FC66700006A06D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FC27431A1FC66700006A06D1 /* WordyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyViewController.swift; sourceTree = "<group>"; };
+		FC27431D1FC66700006A06D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/WordyViewController.storyboard; sourceTree = "<group>"; };
 		FC2743201FC66700006A06D1 /* Wordy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wordy.xcdatamodel; sourceTree = "<group>"; };
 		FC2743221FC66700006A06D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC2743251FC66700006A06D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -149,8 +157,12 @@
 				FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */,
 				FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */,
 				FC2743181FC66700006A06D1 /* AppDelegate.swift */,
-				FC27431A1FC66700006A06D1 /* ViewController.swift */,
-				FC27431C1FC66700006A06D1 /* Main.storyboard */,
+				FC061AF11FCBC7BB0078D005 /* DefinitionViewController.swift */,
+				FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */,
+				FC27431A1FC66700006A06D1 /* WordyViewController.swift */,
+				FC27431C1FC66700006A06D1 /* WordyViewController.storyboard */,
+				FC1ADB631FCC99A10051E6EC /* bing.wav */,
+				FC1ADB621FCC99A00051E6EC /* bloop.wav */,
 				FC2743221FC66700006A06D1 /* Assets.xcassets */,
 				FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */,
 				FC2743271FC66700006A06D1 /* Info.plist */,
@@ -295,8 +307,11 @@
 			files = (
 				FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */,
 				FC061AF01FCB40C20078D005 /* dictionary.json in Resources */,
+				FC1ADB651FCC99A10051E6EC /* bing.wav in Resources */,
 				FC2743231FC66700006A06D1 /* Assets.xcassets in Resources */,
-				FC27431E1FC66700006A06D1 /* Main.storyboard in Resources */,
+				FC27431E1FC66700006A06D1 /* WordyViewController.storyboard in Resources */,
+				FC061AF41FCBC7D90078D005 /* DefinitionViewController.storyboard in Resources */,
+				FC1ADB641FCC99A10051E6EC /* bloop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,11 +483,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC27431B1FC66700006A06D1 /* ViewController.swift in Sources */,
+				FC27431B1FC66700006A06D1 /* WordyViewController.swift in Sources */,
 				FC2743211FC66700006A06D1 /* Wordy.xcdatamodeld in Sources */,
 				FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */,
 				FC2743681FC681F3006A06D1 /* Word+CoreDataProperties.swift in Sources */,
 				FC2743671FC681F3006A06D1 /* Word+CoreDataClass.swift in Sources */,
+				FC061AF21FCBC7BB0078D005 /* DefinitionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,12 +524,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FC27431C1FC66700006A06D1 /* Main.storyboard */ = {
+		FC27431C1FC66700006A06D1 /* WordyViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FC27431D1FC66700006A06D1 /* Base */,
 			);
-			name = Main.storyboard;
+			name = WordyViewController.storyboard;
 			sourceTree = "<group>";
 		};
 		FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */ = {

@@ -12,104 +12,118 @@
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
+            <string>HelveticaNeue-Bold</string>
+            <string>HelveticaNeue-Medium</string>
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Wordy View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Wordy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WordyViewController" customModule="Wordy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fl9-Hr-t1Q" userLabel="Words Completed Label">
-                                <rect key="frame" x="0.0" y="76" width="414" height="20"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Word" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61x-Q5-UvD" userLabel="Word Label">
-                                <rect key="frame" x="16" y="104" width="382" height="20"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="RcF-QY-GuM" userLabel="Button D">
-                                <rect key="frame" x="16" y="628" width="382" height="100"/>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="zs5-HF-TyE">
+                                <rect key="frame" x="82" y="243" width="250" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="ac3-UN-7bO"/>
+                                    <constraint firstAttribute="width" constant="250" id="Elo-45-pzb"/>
+                                    <constraint firstAttribute="height" constant="250" id="umV-fW-C7N"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal">
-                                    <string key="title">Button D
-
-</string>
-                                    <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mQY-Nx-bFc"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="FPs-D3-idt" userLabel="Button C">
-                                <rect key="frame" x="16" y="520" width="382" height="100"/>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="jn5-oT-a0P"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal">
-                                    <string key="title">Button C
-
-</string>
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W19-2C-Xx7"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="E7U-QC-aho" userLabel="Button B">
-                                <rect key="frame" x="16" y="412" width="382" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="6G0-wZ-Gio"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal">
-                                    <string key="title">Button B
-
-</string>
-                                    <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W2J-G5-uVH"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OU9-xA-edh" userLabel="Button A">
-                                <rect key="frame" x="16" y="304" width="382" height="100"/>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Is7-z6-AmC"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal">
-                                    <string key="title">Button A
-
-</string>
-                                    <color key="titleShadowColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c1r-Bo-ant"/>
-                                </connections>
-                            </button>
+                            </imageView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YSM-Qv-FgG">
-                                <rect key="frame" x="129.66666666666666" y="132" width="154.99999999999997" height="2"/>
+                                <rect key="frame" x="130" y="76" width="155" height="2"/>
                                 <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="155" id="p9E-LB-kTX"/>
                                 </constraints>
                             </progressView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fl9-Hr-t1Q" userLabel="Words Completed Label">
+                                <rect key="frame" x="0.0" y="82" width="414" height="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61x-Q5-UvD" userLabel="Word Label">
+                                <rect key="frame" x="16" y="104" width="382" height="192"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="RcF-QY-GuM" userLabel="Button D">
+                                <rect key="frame" x="16" y="628" width="382" height="100"/>
+                                <color key="backgroundColor" red="0.57919406890000003" green="0.1280144453" blue="0.57268613580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="ac3-UN-7bO"/>
+                                </constraints>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                <state key="normal">
+                                    <string key="title">Button D
+
+</string>
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mQY-Nx-bFc"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="FPs-D3-idt" userLabel="Button C">
+                                <rect key="frame" x="16" y="520" width="382" height="100"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="jn5-oT-a0P"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                <state key="normal">
+                                    <string key="title">Button C
+
+</string>
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W19-2C-Xx7"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="E7U-QC-aho" userLabel="Button B">
+                                <rect key="frame" x="16" y="412" width="382" height="100"/>
+                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="6G0-wZ-Gio"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                <state key="normal">
+                                    <string key="title">Button B
+
+</string>
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W2J-G5-uVH"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OU9-xA-edh" userLabel="Button A">
+                                <rect key="frame" x="15" y="304" width="382" height="100"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Is7-z6-AmC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                <state key="normal">
+                                    <string key="title">Button A
+
+</string>
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c1r-Bo-ant"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -120,20 +134,22 @@
                             <constraint firstItem="FPs-D3-idt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JEo-Vs-Kei"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="61x-Q5-UvD" secondAttribute="trailing" constant="16" id="JeG-RY-agD"/>
                             <constraint firstItem="FPs-D3-idt" firstAttribute="top" secondItem="E7U-QC-aho" secondAttribute="bottom" constant="8" id="ODJ-AO-ItJ"/>
+                            <constraint firstItem="Fl9-Hr-t1Q" firstAttribute="top" secondItem="YSM-Qv-FgG" secondAttribute="bottom" constant="4" id="OQj-r7-yxK"/>
                             <constraint firstItem="E7U-QC-aho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="WFm-Bk-I4w"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RcF-QY-GuM" secondAttribute="bottom" constant="8" id="YW5-U7-eOk"/>
-                            <constraint firstItem="OU9-xA-edh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="61x-Q5-UvD" secondAttribute="bottom" constant="8" id="ZEF-0A-fg1"/>
+                            <constraint firstItem="OU9-xA-edh" firstAttribute="top" secondItem="61x-Q5-UvD" secondAttribute="bottom" constant="8" id="ZEF-0A-fg1"/>
                             <constraint firstItem="61x-Q5-UvD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="bJf-vq-Jyt"/>
-                            <constraint firstItem="YSM-Qv-FgG" firstAttribute="top" secondItem="61x-Q5-UvD" secondAttribute="bottom" constant="8" id="cwi-h5-D2C"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="E7U-QC-aho" secondAttribute="trailing" constant="16" id="d9h-gU-FK1"/>
                             <constraint firstItem="RcF-QY-GuM" firstAttribute="top" secondItem="FPs-D3-idt" secondAttribute="bottom" constant="8" id="fpT-xN-yOC"/>
                             <constraint firstItem="YSM-Qv-FgG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fzD-Wt-cvU"/>
                             <constraint firstItem="Fl9-Hr-t1Q" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hD6-Wa-Q27"/>
-                            <constraint firstItem="Fl9-Hr-t1Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="56" id="lNV-IZ-Ih0"/>
+                            <constraint firstItem="Fl9-Hr-t1Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="62" id="lNV-IZ-Ih0"/>
+                            <constraint firstItem="zs5-HF-TyE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="lom-DP-DCx"/>
                             <constraint firstItem="OU9-xA-edh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="mEy-xJ-i8m"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OU9-xA-edh" secondAttribute="trailing" constant="16" id="mab-gY-hWw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RcF-QY-GuM" secondAttribute="trailing" constant="16" id="qgh-Wq-KSE"/>
-                            <constraint firstItem="61x-Q5-UvD" firstAttribute="top" secondItem="Fl9-Hr-t1Q" secondAttribute="bottom" constant="8" id="xxb-PC-gYn"/>
+                            <constraint firstItem="61x-Q5-UvD" firstAttribute="top" secondItem="Fl9-Hr-t1Q" secondAttribute="bottom" constant="8" id="rWf-JK-5S8"/>
+                            <constraint firstItem="zs5-HF-TyE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zJj-FU-FOt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -142,6 +158,7 @@
                         <outlet property="buttonB" destination="E7U-QC-aho" id="gAB-nz-aNz"/>
                         <outlet property="buttonC" destination="FPs-D3-idt" id="TKl-ob-0zb"/>
                         <outlet property="buttonD" destination="RcF-QY-GuM" id="BaX-9r-TSA"/>
+                        <outlet property="logoView" destination="zs5-HF-TyE" id="TEM-UB-pBz"/>
                         <outlet property="progressView" destination="YSM-Qv-FgG" id="hHa-Zt-CtF"/>
                         <outlet property="wordLabel" destination="61x-Q5-UvD" id="Dem-71-92s"/>
                         <outlet property="wordsCompletedLabel" destination="Fl9-Hr-t1Q" id="Pjf-2P-YQ3"/>
@@ -152,4 +169,7 @@
             <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="1024" height="1024"/>
+    </resources>
 </document>

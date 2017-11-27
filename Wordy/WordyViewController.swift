@@ -9,21 +9,23 @@
 import UIKit
 import CoreData
 import GoogleMobileAds
+import AudioToolbox
 
-class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate  {
+class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, UIViewControllerPreviewingDelegate  {
     
-    var development = true
+    var development = false
     
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var wordsCompletedLabel: UILabel!
     
+    @IBOutlet weak var logoView: UIImageView!
     @IBOutlet weak var buttonA: UIButton!
     @IBOutlet weak var buttonB: UIButton!
     @IBOutlet weak var buttonC: UIButton!
     @IBOutlet weak var buttonD: UIButton!
     
     var words:[Word] = []
-    var word:Word = Word()
+    var word:Word?
     
     var allWords:[String:String] = [:]
     var wordsRemaining:[String:String] = [:]
@@ -44,6 +46,11 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(traitCollection.forceTouchCapability == .available){
+            registerForPreviewing(with: self, sourceView: view)
+        }
+        
+        
         self.progressView.setProgress(0, animated: true)
         
         self.wordLabel.isHidden = true
@@ -51,6 +58,31 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
         self.buttonB.isHidden = true
         self.buttonC.isHidden = true
         self.buttonD.isHidden = true
+        self.progressView.isHidden = true
+        
+        self.buttonA.layer.borderWidth = 1.0
+        self.buttonA.layer.cornerRadius = 20
+        self.buttonA.layer.borderColor = UIColor.blue.cgColor
+        self.buttonA.titleLabel?.numberOfLines = 5
+        self.buttonA.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        
+        self.buttonB.layer.borderWidth = 1.0
+        self.buttonB.layer.cornerRadius = 20
+        self.buttonB.layer.borderColor = UIColor.orange.cgColor
+        self.buttonB.titleLabel?.numberOfLines = 5
+        self.buttonB.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        
+        self.buttonC.layer.borderWidth = 1.0
+        self.buttonC.layer.cornerRadius = 20
+        self.buttonC.layer.borderColor = UIColor.red.cgColor
+        self.buttonC.titleLabel?.numberOfLines = 5
+        self.buttonC.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        
+        self.buttonD.layer.borderWidth = 1.0
+        self.buttonD.layer.cornerRadius = 20
+        self.buttonD.layer.borderColor = UIColor.purple.cgColor
+        self.buttonD.titleLabel?.numberOfLines = 5
+        self.buttonD.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -124,43 +156,67 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
         let randomButton = Int(arc4random_uniform(4))
         
         DispatchQueue.main.async {
-            self.wordLabel.text = self.word.word
+            self.wordLabel.text = self.word?.word
             
             switch (randomButton) {
             case 0:
-                self.buttonA.setTitle(self.word.definition, for: .normal)
-                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonA.setTitle(self.word?.definition!,
+                                                for: UIControlState.normal)
+                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                            for: .normal)
+                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                                for: .normal)
+                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                                for: .normal)
             case 1:
-                self.buttonB.setTitle(self.word.definition, for: .normal)
-                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonB.setTitle(self.word?.definition!,
+                                      for: UIControlState.normal)
+                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
+                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
+                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
             case 2:
-                self.buttonC.setTitle(self.word.definition, for: .normal)
-                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonC.setTitle(self.word?.definition!,
+                                      for: UIControlState.normal)
+                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
+                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
+                self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
             case 3:
-                self.buttonD.setTitle(self.word.definition, for: .normal)
-                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
-                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition, for: .normal)
+                self.buttonD.setTitle(self.word?.definition!,
+                                      for: UIControlState.normal)
+                self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
+                self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
+                self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
+                                      for: .normal)
             default: break
                 
             }
-        }
-        
-        DispatchQueue.main.async {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            let formattedWordsCount = numberFormatter.string(from: NSNumber(value:self.words.count))
+            self.wordsCompletedLabel.text = "\(self.words.count - self.words.filter({ $0.passed == false }).count) of " + formattedWordsCount! + " correct"
+            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
+            
+            self.buttonA.titleLabel?.frame = self.buttonA.frame
+            self.buttonB.titleLabel?.frame = self.buttonB.frame
+            self.buttonC.titleLabel?.frame = self.buttonC.frame
+            self.buttonD.titleLabel?.frame = self.buttonD.frame
+            
             self.wordLabel.isHidden = false
             self.buttonA.isHidden = false
             self.buttonB.isHidden = false
             self.buttonC.isHidden = false
             self.buttonD.isHidden = false
-            
-            self.wordsCompletedLabel.text = "\(self.words.count - self.words.filter({ $0.passed == false }).count) of \(self.words.count) correct"
-            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
+            self.progressView.isHidden = false
+            self.wordsCompletedLabel.isHidden = false
+            self.logoView.isHidden = true
         }
     }
 
@@ -230,15 +286,43 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-        if(sender.title(for: .normal) == self.word.definition) {
-            self.word.passed = true
+        if(sender.title(for: .normal) == self.word?.definition) {
+            self.word?.passed = true
             self.saveData()
             self.wordsCompletedLabel.textColor = UIColor.green
             wrongCounter = 0
+            let filename = "bing"
+            let ext = "wav"
+            
+            if let soundUrl = Bundle.main.url(forResource: filename, withExtension: ext) {
+                var soundId: SystemSoundID = 0
+                
+                AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
+                
+                AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
+                    AudioServicesDisposeSystemSoundID(soundId)
+                }, nil)
+                
+                AudioServicesPlaySystemSound(soundId)
+            }
         } else {
+            let filename = "bloop"
+            let ext = "wav"
+            
+            if let soundUrl = Bundle.main.url(forResource: filename, withExtension: ext) {
+                var soundId: SystemSoundID = 0
+                
+                AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
+                
+                AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
+                    AudioServicesDisposeSystemSoundID(soundId)
+                }, nil)
+                
+                AudioServicesPlaySystemSound(soundId)
+            }
             self.wordsCompletedLabel.textColor = UIColor.red
             wrongCounter += 1
-            if (wrongCounter >= 3) {
+            if (wrongCounter >= 5) {
                 if interstitial.isReady {
                     interstitial.present(fromRootViewController: self)
                 } else {
@@ -395,6 +479,43 @@ class ViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDe
     /// (such as the App Store), backgrounding the current app.
     func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
         print("interstitialWillLeaveApplication")
+    }
+    //#pragma mark - PreviewingDelegate
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let storyboard = UIStoryboard(name: "DefinitionViewController", bundle: nil)
+        guard let definitionViewController = storyboard.instantiateViewController(withIdentifier: "DefinitionViewController") as? DefinitionViewController else { return nil }
+        if (self.buttonA.frame.contains(location)) {
+            definitionViewController.definition = self.buttonA.title(for: .normal)!
+            return definitionViewController
+        } else if (self.buttonB.frame.contains(location)) {
+            definitionViewController.definition = self.buttonB.title(for: .normal)!
+            return definitionViewController
+        } else if (self.buttonC.frame.contains(location)) {
+            definitionViewController.definition = self.buttonC.title(for: .normal)!
+            return definitionViewController
+        } else if (self.buttonD.frame.contains(location)) {
+            definitionViewController.definition = self.buttonD.title(for: .normal)!
+            return definitionViewController
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let vc = viewControllerToCommit as? DefinitionViewController {
+            vc.xButton.isHidden =  false
+        }
+        present(viewControllerToCommit, animated: true, completion: nil)
+    }
+    
+    @objc func longPressedButton(sender: UILongPressGestureRecognizer)
+    {
+        guard let button = sender.view as? UIButton else { return }
+        let storyboard = UIStoryboard(name: "DefinitionViewController", bundle: nil)
+        let definitionViewController = storyboard.instantiateViewController(withIdentifier: "DefinitionViewController") as? DefinitionViewController
+        present(definitionViewController!, animated: true) {
+            definitionViewController?.xButton.isHidden =  false
+            definitionViewController?.definitionLabel.text = button.title(for: .normal)
+        }
     }
 }
 
