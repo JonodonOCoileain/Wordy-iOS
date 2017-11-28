@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 import GoogleMobileAds
-import AudioToolbox
+import AVFoundation
 
 class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, UIViewControllerPreviewingDelegate  {
     
-    var development = false
+    var development = true
     
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var wordsCompletedLabel: UILabel!
@@ -36,6 +36,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     var saving = false
     
     @IBOutlet weak var progressView: UIProgressView!
+    
+    var player : AVAudioPlayer?
     
     var bannerView: GADBannerView!
     var interstitial: GADInterstitial!
@@ -292,34 +294,39 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             self.wordsCompletedLabel.textColor = UIColor.green
             wrongCounter = 0
             let filename = "bing"
-            let ext = "wav"
+            let ext = "mp3"
             
-            if let soundUrl = Bundle.main.url(forResource: filename, withExtension: ext) {
-                var soundId: SystemSoundID = 0
+            guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
+            
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
                 
-                AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
-                
-                AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
-                    AudioServicesDisposeSystemSoundID(soundId)
-                }, nil)
-                
-                AudioServicesPlaySystemSound(soundId)
+                self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+                self.player?.prepareToPlay()
+                self.player?.play()
+                self.player?.volume = 0.05
+            } catch let error {
+                print(error.localizedDescription)
             }
         } else {
             let filename = "bloop"
-            let ext = "wav"
+            let ext = "mp3"
             
-            if let soundUrl = Bundle.main.url(forResource: filename, withExtension: ext) {
-                var soundId: SystemSoundID = 0
+            guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
+            
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
                 
-                AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundId)
-                
-                AudioServicesAddSystemSoundCompletion(soundId, nil, nil, { (soundId, clientData) -> Void in
-                    AudioServicesDisposeSystemSoundID(soundId)
-                }, nil)
-                
-                AudioServicesPlaySystemSound(soundId)
+                self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+                self.player?.prepareToPlay()
+                self.player?.play()
+                self.player?.volume = 0.05
+            } catch let error {
+                print(error.localizedDescription)
             }
+            
             self.wordsCompletedLabel.textColor = UIColor.red
             wrongCounter += 1
             if (wrongCounter >= 5) {

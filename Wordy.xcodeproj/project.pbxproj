@@ -12,8 +12,8 @@
 		FC061AF01FCB40C20078D005 /* dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FC061AEF1FCB40C20078D005 /* dictionary.json */; };
 		FC061AF21FCBC7BB0078D005 /* DefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC061AF11FCBC7BB0078D005 /* DefinitionViewController.swift */; };
 		FC061AF41FCBC7D90078D005 /* DefinitionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */; };
-		FC1ADB641FCC99A10051E6EC /* bloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = FC1ADB621FCC99A00051E6EC /* bloop.wav */; };
-		FC1ADB651FCC99A10051E6EC /* bing.wav in Resources */ = {isa = PBXBuildFile; fileRef = FC1ADB631FCC99A10051E6EC /* bing.wav */; };
+		FC1ADB681FCCF57C0051E6EC /* bloop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC1ADB661FCCF57B0051E6EC /* bloop.mp3 */; };
+		FC1ADB691FCCF57C0051E6EC /* bing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC1ADB671FCCF57B0051E6EC /* bing.mp3 */; };
 		FC2743191FC66700006A06D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743181FC66700006A06D1 /* AppDelegate.swift */; };
 		FC27431B1FC66700006A06D1 /* WordyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27431A1FC66700006A06D1 /* WordyViewController.swift */; };
 		FC27431E1FC66700006A06D1 /* WordyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC27431C1FC66700006A06D1 /* WordyViewController.storyboard */; };
@@ -57,8 +57,8 @@
 		FC061AEF1FCB40C20078D005 /* dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dictionary.json; sourceTree = "<group>"; };
 		FC061AF11FCBC7BB0078D005 /* DefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefinitionViewController.swift; sourceTree = "<group>"; };
 		FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DefinitionViewController.storyboard; sourceTree = "<group>"; };
-		FC1ADB621FCC99A00051E6EC /* bloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bloop.wav; sourceTree = "<group>"; };
-		FC1ADB631FCC99A10051E6EC /* bing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bing.wav; sourceTree = "<group>"; };
+		FC1ADB661FCCF57B0051E6EC /* bloop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bloop.mp3; sourceTree = "<group>"; };
+		FC1ADB671FCCF57B0051E6EC /* bing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bing.mp3; sourceTree = "<group>"; };
 		FC2743151FC66700006A06D1 /* Wordy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wordy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2743181FC66700006A06D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC27431A1FC66700006A06D1 /* WordyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyViewController.swift; sourceTree = "<group>"; };
@@ -161,8 +161,8 @@
 				FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */,
 				FC27431A1FC66700006A06D1 /* WordyViewController.swift */,
 				FC27431C1FC66700006A06D1 /* WordyViewController.storyboard */,
-				FC1ADB631FCC99A10051E6EC /* bing.wav */,
-				FC1ADB621FCC99A00051E6EC /* bloop.wav */,
+				FC1ADB671FCCF57B0051E6EC /* bing.mp3 */,
+				FC1ADB661FCCF57B0051E6EC /* bloop.mp3 */,
 				FC2743221FC66700006A06D1 /* Assets.xcassets */,
 				FC2743241FC66700006A06D1 /* LaunchScreen.storyboard */,
 				FC2743271FC66700006A06D1 /* Info.plist */,
@@ -307,11 +307,11 @@
 			files = (
 				FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */,
 				FC061AF01FCB40C20078D005 /* dictionary.json in Resources */,
-				FC1ADB651FCC99A10051E6EC /* bing.wav in Resources */,
+				FC1ADB691FCCF57C0051E6EC /* bing.mp3 in Resources */,
+				FC1ADB681FCCF57C0051E6EC /* bloop.mp3 in Resources */,
 				FC2743231FC66700006A06D1 /* Assets.xcassets in Resources */,
 				FC27431E1FC66700006A06D1 /* WordyViewController.storyboard in Resources */,
 				FC061AF41FCBC7D90078D005 /* DefinitionViewController.storyboard in Resources */,
-				FC1ADB641FCC99A10051E6EC /* bloop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
