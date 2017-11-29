@@ -11,13 +11,12 @@ import CoreData
 import GoogleMobileAds
 import AVFoundation
 
-class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, UIViewControllerPreviewingDelegate  {
+class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate  {
     
-    var development = true
+    var development = false
     
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var wordsCompletedLabel: UILabel!
-    
     @IBOutlet weak var logoView: UIImageView!
     @IBOutlet weak var buttonA: UIButton!
     @IBOutlet weak var buttonB: UIButton!
@@ -32,12 +31,15 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     var currentIndex = -1
     var wrongCounter = 0
+    var wrongBeforeAd = 3
     
-    var saving = false
+    var showingRightAnswer = false
     
     @IBOutlet weak var progressView: UIProgressView!
     
     var player : AVAudioPlayer?
+    
+    var pronunciationURL = "https://www.merriam-webster.com/dictionary/WORD?pronunciation&lang=en_us&dir=f&file=WORD0001"
     
     var bannerView: GADBannerView!
     var interstitial: GADInterstitial!
@@ -52,36 +54,35 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             registerForPreviewing(with: self, sourceView: view)
         }
         
-        
         self.progressView.setProgress(0, animated: true)
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
+        tapRecognizer.delegate = self
+        self.view.addGestureRecognizer(tapRecognizer)
         
+        self.hideButtons()
         self.wordLabel.isHidden = true
-        self.buttonA.isHidden = true
-        self.buttonB.isHidden = true
-        self.buttonC.isHidden = true
-        self.buttonD.isHidden = true
         self.progressView.isHidden = true
         
         self.buttonA.layer.borderWidth = 1.0
-        self.buttonA.layer.cornerRadius = 20
+        self.buttonA.layer.cornerRadius = 50
         self.buttonA.layer.borderColor = UIColor.blue.cgColor
         self.buttonA.titleLabel?.numberOfLines = 5
         self.buttonA.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
         
         self.buttonB.layer.borderWidth = 1.0
-        self.buttonB.layer.cornerRadius = 20
+        self.buttonB.layer.cornerRadius = 50
         self.buttonB.layer.borderColor = UIColor.orange.cgColor
         self.buttonB.titleLabel?.numberOfLines = 5
         self.buttonB.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
         
         self.buttonC.layer.borderWidth = 1.0
-        self.buttonC.layer.cornerRadius = 20
+        self.buttonC.layer.cornerRadius = 50
         self.buttonC.layer.borderColor = UIColor.red.cgColor
         self.buttonC.titleLabel?.numberOfLines = 5
         self.buttonC.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
         
         self.buttonD.layer.borderWidth = 1.0
-        self.buttonD.layer.cornerRadius = 20
+        self.buttonD.layer.cornerRadius = 50
         self.buttonD.layer.borderColor = UIColor.purple.cgColor
         self.buttonD.titleLabel?.numberOfLines = 5
         self.buttonD.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
@@ -137,6 +138,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         self.interstitial.load(request)
         self.interstitial = createAndLoadInterstitial()
         
+        self.showButtons()
     }
     
     override func didReceiveMemoryWarning() {
@@ -144,7 +146,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         // Dispose of any resources that can be recreated.
     }
     
-    func setUp() {
+    @objc func setUp() {
         
         let randomInt = Int(arc4random_uniform(UInt32(self.words.filter({ $0.passed == false }).count)))
         
@@ -212,10 +214,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             self.buttonD.titleLabel?.frame = self.buttonD.frame
             
             self.wordLabel.isHidden = false
-            self.buttonA.isHidden = false
-            self.buttonB.isHidden = false
-            self.buttonC.isHidden = false
-            self.buttonD.isHidden = false
+            
             self.progressView.isHidden = false
             self.wordsCompletedLabel.isHidden = false
             self.logoView.isHidden = true
@@ -269,6 +268,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         }
     }
     
+    //MARK: Saved
+    
     func saveData() {
         DispatchQueue.main.async {
             guard let appDelegate =
@@ -287,77 +288,41 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         }
     }
     
+    //MARK: Button pressed
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
-        if(sender.title(for: .normal) == self.word?.definition) {
-            self.word?.passed = true
-            self.saveData()
-            self.wordsCompletedLabel.textColor = UIColor.green
-            wrongCounter = 0
-            let filename = "bing"
-            let ext = "mp3"
-            
-            guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
-            
-            do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-                try AVAudioSession.sharedInstance().setActive(true)
-                
-                self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
-                self.player?.prepareToPlay()
-                self.player?.play()
-                self.player?.volume = 0.05
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        } else {
-            let filename = "bloop"
-            let ext = "mp3"
-            
-            guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
-            
-            do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-                try AVAudioSession.sharedInstance().setActive(true)
-                
-                self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
-                self.player?.prepareToPlay()
-                self.player?.play()
-                self.player?.volume = 0.05
-            } catch let error {
-                print(error.localizedDescription)
-            }
-            
-            self.wordsCompletedLabel.textColor = UIColor.red
-            wrongCounter += 1
-            if (wrongCounter >= 5) {
-                if interstitial.isReady {
-                    interstitial.present(fromRootViewController: self)
+        if (!showingRightAnswer) {
+            if (self.words.filter({ $0.passed == false }).count > 0) {
+                if(sender.title(for: .normal) == self.word?.definition) {
+                    self.handleCorrectAnswer()
                 } else {
-                    print("Ad wasn't ready")
+                    self.handleWrongAnswer()
                 }
-                wrongCounter = 0
+            } else {
+                self.gameOver()
             }
-        }
-        
-        if (self.words.filter({ $0.passed == false }).count > 0) {
-            self.setUp()
         } else {
-            DispatchQueue.main.async {
-                self.wordLabel.isHidden = true
-                self.buttonA.isHidden = true
-                self.buttonB.isHidden = true
-                self.buttonC.isHidden = true
-                self.buttonD.isHidden = true
-               
-                self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
-                
-                self.wordsCompletedLabel.text  = "You are word wizard!"
-            }
+            self.screenTapped()
         }
         
     }
     
-    //#pragma mark - Google Mobile Ad Banner
+    func handleCorrectAnswer() {
+        self.word?.passed = true
+        self.saveData()
+        self.wordsCompletedLabel.textColor = UIColor.green
+        wrongCounter = 0
+        self.playCorrectSound()
+        self.setUp()
+    }
+    
+    func handleWrongAnswer() {
+        self.playWrongSound()
+        self.hideWrongButtonsToShowAnswer()
+        self.wrongCounter += 1
+    }
+    
+    //MARK: Ads
     func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
@@ -372,7 +337,6 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         }
     }
     
-    // MARK: - view positioning
     @available (iOS 11, *)
     func positionBannerViewFullWidthAtTopOfSafeArea(_ bannerView: UIView) {
         // Position the banner. Stick it to the bottom of the Safe Area.
@@ -487,7 +451,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
         print("interstitialWillLeaveApplication")
     }
-    //#pragma mark - PreviewingDelegate
+    //MARK: Definition View
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         let storyboard = UIStoryboard(name: "DefinitionViewController", bundle: nil)
         guard let definitionViewController = storyboard.instantiateViewController(withIdentifier: "DefinitionViewController") as? DefinitionViewController else { return nil }
@@ -524,5 +488,125 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             definitionViewController?.definitionLabel.text = button.title(for: .normal)
         }
     }
+    
+    @objc func showButtons() {
+        DispatchQueue.main.async {
+            self.buttonA.isHidden = false
+            self.buttonB.isHidden = false
+            self.buttonC.isHidden = false
+            self.buttonD.isHidden = false
+        }
+    }
+    
+    func hideButtons() {
+        DispatchQueue.main.async {
+            self.buttonA.isHidden = true
+            self.buttonB.isHidden = true
+            self.buttonC.isHidden = true
+            self.buttonD.isHidden = true
+        }
+    }
+    
+    func hideWrongButtonsToShowAnswer() {
+        let buttonAText = self.buttonA.title(for: .normal)
+        let buttonBText = self.buttonB.title(for: .normal)
+        let buttonCText = self.buttonC.title(for: .normal)
+        let buttonDText = self.buttonD.title(for: .normal)
+        let wordDefinition = self.word?.definition
+        
+        DispatchQueue.main.async {
+            self.wordsCompletedLabel.textColor = UIColor.red
+            if(buttonAText != wordDefinition) {
+                self.buttonA.isHidden = true
+            }
+            if(buttonBText != wordDefinition) {
+                self.buttonB.isHidden = true
+            }
+            if(buttonCText != wordDefinition) {
+                self.buttonC.isHidden = true
+            }
+            if(buttonDText != wordDefinition) {
+                self.buttonD.isHidden = true
+            }
+        }
+        
+        self.showingRightAnswer = true
+    }
+    
+    func playCorrectSound() {
+        let filename = "bing"
+        let ext = "mp3"
+        
+        guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+            self.player?.prepareToPlay()
+            self.player?.play()
+            self.player?.volume = 0.05
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func playWrongSound() {
+        let filename = "bloop"
+        let ext = "mp3"
+        
+        guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+            self.player?.prepareToPlay()
+            self.player?.play()
+            self.player?.volume = 0.05
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    @objc func presentInterstitial() {
+        self.interstitial.present(fromRootViewController: self)
+    }
+    
+    func gameOver() {
+        DispatchQueue.main.async {
+            self.wordLabel.isHidden = true
+            self.buttonA.isHidden = true
+            self.buttonB.isHidden = true
+            self.buttonC.isHidden = true
+            self.buttonD.isHidden = true
+            
+            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
+            
+            self.wordsCompletedLabel.text  = "You are a Word Wizard!"
+        }
+    }
+    
+    @objc func screenTapped() {
+        if (self.showingRightAnswer) {
+            if (self.wrongCounter >= self.wrongBeforeAd) {
+                if self.interstitial.isReady {
+                    self.presentInterstitial()
+                } else {
+                    print("Ad wasn't ready")
+                }
+                self.wrongCounter = 0
+            }
+            
+            self.showButtons()
+            
+            self.setUp()
+            
+            self.showingRightAnswer = false
+        }
+    }
+
 }
 
