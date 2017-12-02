@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6DE20D5C164FE6217E2D9565 /* Pods_Wordy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */; };
 		7B88641910C5CF64949DB744 /* Pods_WordyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */; };
-		FC061AF01FCB40C20078D005 /* dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FC061AEF1FCB40C20078D005 /* dictionary.json */; };
 		FC061AF21FCBC7BB0078D005 /* DefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC061AF11FCBC7BB0078D005 /* DefinitionViewController.swift */; };
 		FC061AF41FCBC7D90078D005 /* DefinitionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */; };
 		FC1ADB681FCCF57C0051E6EC /* bloop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC1ADB661FCCF57B0051E6EC /* bloop.mp3 */; };
@@ -24,6 +23,7 @@
 		FC27433C1FC66700006A06D1 /* WordyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27433B1FC66700006A06D1 /* WordyUITests.swift */; };
 		FC2743671FC681F3006A06D1 /* Word+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */; };
 		FC2743681FC681F3006A06D1 /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */; };
+		FC3A5CA11FD1D86400C7CED3 /* WordyDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FC3A5CA01FD1D86400C7CED3 /* WordyDictionary.json */; };
 		FD868D9A36CBD4739EC3E1ED /* Pods_WordyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E39422D45EE6780A69ED426 /* Pods_WordyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +54,6 @@
 		675868CB6EA1B3DA8EA28DAD /* Pods-WordyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WordyUITests/Pods-WordyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		97A8B72B8651A16033A84B83 /* Pods_Wordy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wordy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE846B5D29DA3D473A06DD2 /* Pods_WordyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC061AEF1FCB40C20078D005 /* dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dictionary.json; sourceTree = "<group>"; };
 		FC061AF11FCBC7BB0078D005 /* DefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefinitionViewController.swift; sourceTree = "<group>"; };
 		FC061AF31FCBC7D90078D005 /* DefinitionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DefinitionViewController.storyboard; sourceTree = "<group>"; };
 		FC1ADB661FCCF57B0051E6EC /* bloop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bloop.mp3; sourceTree = "<group>"; };
@@ -75,6 +74,9 @@
 		FC27433D1FC66700006A06D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FC3A5CA01FD1D86400C7CED3 /* WordyDictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WordyDictionary.json; sourceTree = "<group>"; };
+		FC3A5CBB1FD20C0500C7CED3 /* Wordy copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Wordy copy-Info.plist"; path = "/Users/Jon/Desktop/Wordy/Wordy copy-Info.plist"; sourceTree = "<absolute>"; };
+		FCCB14501FD1D63500057D0D /* Wordy 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wordy 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				FC2743161FC66700006A06D1 /* Products */,
 				002708DD70BA59E0165FC799 /* Pods */,
 				197DFAE91C87ACA8546A867B /* Frameworks */,
+				FC3A5CBB1FD20C0500C7CED3 /* Wordy copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,7 +156,7 @@
 		FC2743171FC66700006A06D1 /* Wordy */ = {
 			isa = PBXGroup;
 			children = (
-				FC061AEF1FCB40C20078D005 /* dictionary.json */,
+				FC3A5CA01FD1D86400C7CED3 /* WordyDictionary.json */,
 				FC2743651FC681F3006A06D1 /* Word+CoreDataClass.swift */,
 				FC2743661FC681F3006A06D1 /* Word+CoreDataProperties.swift */,
 				FC2743181FC66700006A06D1 /* AppDelegate.swift */,
@@ -306,11 +309,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC2743261FC66700006A06D1 /* LaunchScreen.storyboard in Resources */,
-				FC061AF01FCB40C20078D005 /* dictionary.json in Resources */,
 				FC1ADB691FCCF57C0051E6EC /* bing.mp3 in Resources */,
 				FC1ADB681FCCF57C0051E6EC /* bloop.mp3 in Resources */,
 				FC2743231FC66700006A06D1 /* Assets.xcassets in Resources */,
 				FC27431E1FC66700006A06D1 /* WordyViewController.storyboard in Resources */,
+				FC3A5CA11FD1D86400C7CED3 /* WordyDictionary.json in Resources */,
 				FC061AF41FCBC7D90078D005 /* DefinitionViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -799,9 +802,10 @@
 		FC27431F1FC66700006A06D1 /* Wordy.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				FCCB14501FD1D63500057D0D /* Wordy 2.xcdatamodel */,
 				FC2743201FC66700006A06D1 /* Wordy.xcdatamodel */,
 			);
-			currentVersion = FC2743201FC66700006A06D1 /* Wordy.xcdatamodel */;
+			currentVersion = FCCB14501FD1D63500057D0D /* Wordy 2.xcdatamodel */;
 			path = Wordy.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

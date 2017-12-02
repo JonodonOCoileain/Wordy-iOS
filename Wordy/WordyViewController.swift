@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  WordyViewController.swift
 //  Wordy
 //
 //  Created by Jonathan Collins on 11/22/17.
@@ -11,9 +11,13 @@ import CoreData
 import GoogleMobileAds
 import AVFoundation
 
-class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate  {
+class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate, XMLParserDelegate  {
     
-    var development = false
+    #if DEBUG
+        let debug = true
+    #else
+        let debug = false
+    #endif
     
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var wordsCompletedLabel: UILabel!
@@ -22,12 +26,17 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     @IBOutlet weak var buttonB: UIButton!
     @IBOutlet weak var buttonC: UIButton!
     @IBOutlet weak var buttonD: UIButton!
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    let dictionaryFilename = "WordyDictionary"
+    let dictionaryExtension = "json"
+    
+    let buttonCornerRadius = CGFloat(50)
+    let buttonLines = 5
     
     var words:[Word] = []
+    var solvedWords:[Word] = []
     var word:Word?
-    
-    var allWords:[String:String] = [:]
-    var wordsRemaining:[String:String] = [:]
     
     var currentIndex = -1
     var wrongCounter = 0
@@ -35,11 +44,9 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     var showingRightAnswer = false
     
-    @IBOutlet weak var progressView: UIProgressView!
-    
     var player : AVAudioPlayer?
     
-    var pronunciationURL = "https://www.merriam-webster.com/dictionary/WORD?pronunciation&lang=en_us&dir=f&file=WORD0001"
+    var pronunciationURL = "https://en.wiktionary.org/w/index.php?title=WORD&printable=yes"
     
     var bannerView: GADBannerView!
     var interstitial: GADInterstitial!
@@ -50,42 +57,48 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
         if(traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: view)
         }
         
         self.progressView.setProgress(0, animated: true)
+        
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         tapRecognizer.delegate = self
         self.view.addGestureRecognizer(tapRecognizer)
         
-        self.hideButtons()
-        self.wordLabel.isHidden = true
         self.progressView.isHidden = true
         
-        self.buttonA.layer.borderWidth = 1.0
-        self.buttonA.layer.cornerRadius = 50
+        self.buttonA.layer.cornerRadius = buttonCornerRadius
         self.buttonA.layer.borderColor = UIColor.blue.cgColor
-        self.buttonA.titleLabel?.numberOfLines = 5
-        self.buttonA.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        self.buttonA.titleLabel?.numberOfLines = buttonLines
         
-        self.buttonB.layer.borderWidth = 1.0
-        self.buttonB.layer.cornerRadius = 50
+        self.buttonB.layer.cornerRadius = buttonCornerRadius
         self.buttonB.layer.borderColor = UIColor.orange.cgColor
-        self.buttonB.titleLabel?.numberOfLines = 5
-        self.buttonB.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        self.buttonB.titleLabel?.numberOfLines = buttonLines
         
-        self.buttonC.layer.borderWidth = 1.0
-        self.buttonC.layer.cornerRadius = 50
+        
+        self.buttonC.layer.cornerRadius = buttonCornerRadius
         self.buttonC.layer.borderColor = UIColor.red.cgColor
-        self.buttonC.titleLabel?.numberOfLines = 5
-        self.buttonC.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        self.buttonC.titleLabel?.numberOfLines = buttonLines
         
-        self.buttonD.layer.borderWidth = 1.0
-        self.buttonD.layer.cornerRadius = 50
+        self.buttonD.layer.cornerRadius = buttonCornerRadius
         self.buttonD.layer.borderColor = UIColor.purple.cgColor
-        self.buttonD.titleLabel?.numberOfLines = 5
-        self.buttonD.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        self.buttonD.titleLabel?.numberOfLines = buttonLines
+        
+        if (UIScreen.main.nativeBounds.height < 1334) {
+            self.buttonA.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+            self.buttonB.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+            self.buttonC.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+            self.buttonD.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressedButton(sender:))))
+        }
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -104,10 +117,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         
-        if (self.words.count > 0) {
-            self.setUp()
-        } else {
-            if let path = Bundle.main.path(forResource: "dictionary", ofType: "json") {
+        if (self.words.isEmpty) {
+            if let path = Bundle.main.path(forResource: self.dictionaryFilename, ofType: self.dictionaryExtension) {
                 do {
                     let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                     self.saveWordsAndSetUp(wordsData: data)
@@ -117,13 +128,32 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             } else {
                 print("Invalid filename/path.")
             }
+        } else {
+            if (self.words.count < 90000 && self.words.count > 85000) {
+                self.solvedWords = self.words.filter({ $0.passed == true })
+                if let path = Bundle.main.path(forResource: self.dictionaryFilename, ofType: self.dictionaryExtension) {
+                    do {
+                        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                        self.words = []
+                        self.saveWordsAndSetUp(wordsData: data)
+                    } catch let error{
+                        print(error.localizedDescription)
+                    }
+                } else {
+                    print("Invalid filename/path.")
+                }
+            }
+            self.setUp()
         }
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        DispatchQueue.main.async {
+            self.logoView.isHidden = true
+        }
         self.bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         self.bannerView.delegate = self
         
         addBannerViewToView(self.bannerView)
-        if (development)  {
+        if (debug)  {
             self.bannerView.adUnitID = testBannerID
             self.interstitial = GADInterstitial(adUnitID: testInterstitialID)
         } else {
@@ -147,7 +177,6 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     }
     
     @objc func setUp() {
-        
         let randomInt = Int(arc4random_uniform(UInt32(self.words.filter({ $0.passed == false }).count)))
         
         self.word = self.words.filter({ $0.passed == false })[randomInt]
@@ -217,7 +246,6 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             
             self.progressView.isHidden = false
             self.wordsCompletedLabel.isHidden = false
-            self.logoView.isHidden = true
         }
     }
 
@@ -248,19 +276,32 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
                     wordInContext.setValue(wordInDictionary.key, forKeyPath: "word")
                     wordInContext.setValue(wordInDictionary.value, forKeyPath: "definition")
                     wordInContext.setValue(counter, forKeyPath: "id")
-                    wordInContext.setValue(false, forKeyPath: "passed")
+                    if (self.solvedWords.filter({ $0.word?.caseInsensitiveCompare(wordInDictionary.key) == ComparisonResult.orderedSame}).isEmpty) {
+                        wordInContext.setValue(false, forKeyPath: "passed")
+                    } else {
+                        wordInContext.setValue(true, forKeyPath: "passed")
+                    }
                     
                     self.words.append(wordInContext as! Word)
                 
                     counter += 1
                 }
-        
+                self.solvedWords = []
             } catch let error as NSError {
                 print(error)
             }
             
             do {
                 try managedContext.save()
+                if let path = Bundle.main.path(forResource: self.dictionaryFilename, ofType: self.dictionaryExtension) {
+                    do {
+                        try FileManager.default.removeItem(atPath: path)
+                    } catch let error{
+                        print(error.localizedDescription)
+                    }
+                } else {
+                    print("Invalid filename/path.")
+                }
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
@@ -310,7 +351,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     func handleCorrectAnswer() {
         self.word?.passed = true
         self.saveData()
-        self.wordsCompletedLabel.textColor = UIColor.green
+        self.wordsCompletedLabel.textColor = UIColor.black
         wrongCounter = 0
         self.playCorrectSound()
         self.setUp()
@@ -414,7 +455,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     func createAndLoadInterstitial() -> GADInterstitial {
         var interstitial = GADInterstitial(adUnitID: interstitialID)
-        if (development) {
+        if (debug) {
             interstitial = GADInterstitial(adUnitID: testInterstitialID)
         }
         interstitial.delegate = self
@@ -483,9 +524,9 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         guard let button = sender.view as? UIButton else { return }
         let storyboard = UIStoryboard(name: "DefinitionViewController", bundle: nil)
         let definitionViewController = storyboard.instantiateViewController(withIdentifier: "DefinitionViewController") as? DefinitionViewController
-        present(definitionViewController!, animated: true) {
+        definitionViewController?.definition = button.title(for: .normal)!
+        self.present(definitionViewController!, animated: true) {
             definitionViewController?.xButton.isHidden =  false
-            definitionViewController?.definitionLabel.text = button.title(for: .normal)
         }
     }
     
@@ -536,32 +577,20 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     func playCorrectSound() {
         let filename = "bing"
         let ext = "mp3"
-        
-        guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-            
-            self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
-            self.player?.prepareToPlay()
-            self.player?.play()
-            self.player?.volume = 0.05
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        self.playSound(filename: filename, ext: ext)
     }
     
     func playWrongSound() {
         let filename = "bloop"
         let ext = "mp3"
+        self.playSound(filename: filename, ext: ext)
+    }
+    
+    func playSound(filename: String, ext: String) {
         
         guard let url = Bundle.main.url(forResource: filename, withExtension: ext) else { return }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-            
             self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
             self.player?.prepareToPlay()
             self.player?.play()
@@ -609,4 +638,3 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     }
 
 }
-

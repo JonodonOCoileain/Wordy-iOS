@@ -6,8 +6,28 @@
 	<dict>
 		<key>Wordy.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>FC2743141FC66700006A06D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC27432B1FC66700006A06D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC2743361FC66700006A06D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

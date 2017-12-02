@@ -21,5 +21,6 @@ extension Word {
     @NSManaged public var id: Double
     @NSManaged public var word: String?
     @NSManaged public var definition: String?
+    @NSManaged public var pronunciation: String?
 
 }

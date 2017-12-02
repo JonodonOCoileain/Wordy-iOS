@@ -11,18 +11,17 @@ import UIKit
 class DefinitionViewController: UIViewController {
     
     var definition:String = ""
-    @IBOutlet weak var definitionLabel: UILabel!
+    
+    @IBOutlet weak var definitionView: UITextView!
     @IBOutlet weak var xButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.definitionLabel.text = definition
-        // Do any additional setup after loading the view.
+        self.definitionView.text = definition
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func xButtonPressed(_ sender: UIButton) {
