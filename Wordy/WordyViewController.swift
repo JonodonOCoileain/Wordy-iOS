@@ -30,15 +30,30 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     let dictionaryFilename = "WordyDictionary"
     let dictionaryExtension = "json"
-    
-    let buttonCornerRadius = CGFloat(50)
+
     let buttonLines = 5
+    let buttonLinesMultiplier = 5
+    let buttonCornerRadius = CGFloat(50)
+    let buttonLeftAndRightContentEdgeInset = CGFloat(40)
+    let defaultCornerRadius = CGFloat(0)
+    let defaultContentEdgeInset = CGFloat(8)
+    let correctText : String = "You are correct!"
+    let correctTextColor : UIColor = UIColor(displayP3Red: 0.25, green: 0.85, blue: 0.25, alpha: 1.0)
+    let wrongText : String = "You are wrong!"
+    let wrongTextColor : UIColor = UIColor.red
+    
+    var buttonAFrame : CGRect =  CGRect()
+    var buttonBFrame : CGRect =  CGRect()
+    var buttonCFrame : CGRect =  CGRect()
+    var buttonDFrame : CGRect =  CGRect()
     
     var words:[Word] = []
-    var solvedWords:[Word] = []
-    var word:Word?
+    var solvedWords:[String] = []
     
+    var currentWord:Word?
     var currentIndex = -1
+    var currentCorrectAnswerButton:UIButton!
+    
     var wrongCounter = 0
     var wrongBeforeAd = 3
     
@@ -48,6 +63,16 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     var pronunciationURL = "https://en.wiktionary.org/w/index.php?title=WORD&printable=yes"
     
+    
+    //MARK: Animation properties
+    
+    var animator: UIDynamicAnimator!
+    var gravity: UIGravityBehavior!
+    let textFadeOutDuration = 0.50
+    let textFadeInDuration = 1.0
+    
+    //MARK: Advertisement Properties
+    
     var bannerView: GADBannerView!
     var interstitial: GADInterstitial!
     var testBannerID = "ca-app-pub-3940256099942544/2934735716"
@@ -55,8 +80,10 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     var bannerID = "ca-app-pub-5330908290289818/7870941385"
     var interstitialID = "ca-app-pub-5330908290289818/9635449191"
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -83,7 +110,6 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         self.buttonB.layer.cornerRadius = buttonCornerRadius
         self.buttonB.layer.borderColor = UIColor.orange.cgColor
         self.buttonB.titleLabel?.numberOfLines = buttonLines
-        
         
         self.buttonC.layer.cornerRadius = buttonCornerRadius
         self.buttonC.layer.borderColor = UIColor.red.cgColor
@@ -120,8 +146,9 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         if (self.words.isEmpty) {
             if let path = Bundle.main.path(forResource: self.dictionaryFilename, ofType: self.dictionaryExtension) {
                 do {
-                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                    self.saveWordsAndSetUp(wordsData: data)
+                    let wordsData = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    let wordsDictionary = try JSONSerialization.jsonObject(with: wordsData, options: [.allowFragments, .mutableLeaves]) as! [String:String]
+                    self.saveWordsAndSetUp(wordsDictionary: wordsDictionary, withDictionaryMigration: false)
                 } catch let error{
                     print(error.localizedDescription)
                 }
@@ -129,21 +156,23 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
                 print("Invalid filename/path.")
             }
         } else {
-            if (self.words.count < 90000 && self.words.count > 85000) {
-                self.solvedWords = self.words.filter({ $0.passed == true })
+            if (self.words.count == 86036 && self.dictionaryFilename == "WordyDictionary") {
                 if let path = Bundle.main.path(forResource: self.dictionaryFilename, ofType: self.dictionaryExtension) {
                     do {
-                        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                        self.words = []
-                        self.saveWordsAndSetUp(wordsData: data)
+                        let wordsData = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                        let wordsDictionary = try JSONSerialization.jsonObject(with: wordsData, options: [.allowFragments, .mutableLeaves]) as! [String:String]
+                        self.saveWordsAndSetUp(wordsDictionary: wordsDictionary, withDictionaryMigration: true)
                     } catch let error{
                         print(error.localizedDescription)
                     }
                 } else {
                     print("Invalid filename/path.")
                 }
+            } else {
+                
+                self.setWordsCompletedLabel()
+                self.setUp()
             }
-            self.setUp()
         }
         
         DispatchQueue.main.async {
@@ -168,7 +197,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         self.interstitial.load(request)
         self.interstitial = createAndLoadInterstitial()
         
-        self.showButtons()
+        self.animator = UIDynamicAnimator(referenceView: view)
     }
     
     override func didReceiveMemoryWarning() {
@@ -179,7 +208,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     @objc func setUp() {
         let randomInt = Int(arc4random_uniform(UInt32(self.words.filter({ $0.passed == false }).count)))
         
-        self.word = self.words.filter({ $0.passed == false })[randomInt]
+        self.currentWord = self.words.filter({ $0.passed == false })[randomInt]
         self.currentIndex = randomInt
         
         DispatchQueue.global(qos: .background).async {
@@ -188,12 +217,14 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         
         let randomButton = Int(arc4random_uniform(4))
         
+        
         DispatchQueue.main.async {
-            self.wordLabel.text = self.word?.word
-            
+            self.wordLabel.text = self.currentWord?.word
+            self.resetButtons()
             switch (randomButton) {
             case 0:
-                self.buttonA.setTitle(self.word?.definition!,
+                self.currentCorrectAnswerButton = self.buttonA
+                self.buttonA.setTitle(self.currentWord?.definition!,
                                                 for: UIControlState.normal)
                 self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                             for: .normal)
@@ -202,7 +233,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
                 self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                                 for: .normal)
             case 1:
-                self.buttonB.setTitle(self.word?.definition!,
+                    self.currentCorrectAnswerButton = self.buttonB
+                    self.buttonB.setTitle(self.currentWord?.definition!,
                                       for: UIControlState.normal)
                 self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
@@ -211,7 +243,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
                 self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
             case 2:
-                self.buttonC.setTitle(self.word?.definition!,
+                    self.currentCorrectAnswerButton = self.buttonC
+                    self.buttonC.setTitle(self.currentWord?.definition!,
                                       for: UIControlState.normal)
                 self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
@@ -220,7 +253,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
                 self.buttonD.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
             case 3:
-                self.buttonD.setTitle(self.word?.definition!,
+                    self.currentCorrectAnswerButton = self.buttonD
+                    self.buttonD.setTitle(self.currentWord?.definition!,
                                       for: UIControlState.normal)
                 self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
@@ -231,17 +265,9 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             default: break
                 
             }
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = NumberFormatter.Style.decimal
-            let formattedWordsCount = numberFormatter.string(from: NSNumber(value:self.words.count))
-            self.wordsCompletedLabel.text = "\(self.words.count - self.words.filter({ $0.passed == false }).count) of " + formattedWordsCount! + " correct"
+            
             self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
-            
-            self.buttonA.titleLabel?.frame = self.buttonA.frame
-            self.buttonB.titleLabel?.frame = self.buttonB.frame
-            self.buttonC.titleLabel?.frame = self.buttonC.frame
-            self.buttonD.titleLabel?.frame = self.buttonD.frame
-            
+
             self.wordLabel.isHidden = false
             
             self.progressView.isHidden = false
@@ -249,7 +275,13 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         }
     }
 
-    func saveWordsAndSetUp(wordsData: Data) {
+    func saveWordsAndSetUp(wordsDictionary: Dictionary<String, String>, withDictionaryMigration: Bool) {
+        
+        if (withDictionaryMigration) {
+            self.solvedWords = self.words.filter{ $0.passed == true }.map { $0.word! }
+            self.deleteWords()
+        }
+        
         var counter = 0
         
         DispatchQueue.main.async {
@@ -261,51 +293,96 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             let managedContext =
                 appDelegate.persistentContainer.viewContext
         
-            do {
-                let wordsDictionary = try JSONSerialization.jsonObject(with: wordsData, options: [.allowFragments, .mutableLeaves]) as! [String:String]
-        
-                for wordInDictionary in wordsDictionary {
+            for wordInDictionary in wordsDictionary {
        
-                    let entity =
-                        NSEntityDescription.entity(forEntityName: "Word",
-                                                   in: managedContext)!
+                let entity = NSEntityDescription.entity(forEntityName: "Word", in: managedContext)!
         
-                    let wordInContext = NSManagedObject(entity: entity,
-                                     insertInto: managedContext)
+                let wordInContext = NSManagedObject(entity: entity, insertInto: managedContext)
         
-                    wordInContext.setValue(wordInDictionary.key, forKeyPath: "word")
-                    wordInContext.setValue(wordInDictionary.value, forKeyPath: "definition")
-                    wordInContext.setValue(counter, forKeyPath: "id")
-                    if (self.solvedWords.filter({ $0.word?.caseInsensitiveCompare(wordInDictionary.key) == ComparisonResult.orderedSame}).isEmpty) {
-                        wordInContext.setValue(false, forKeyPath: "passed")
-                    } else {
-                        wordInContext.setValue(true, forKeyPath: "passed")
+                wordInContext.setValue(wordInDictionary.key, forKeyPath: "word")
+                wordInContext.setValue(wordInDictionary.value, forKeyPath: "definition")
+                wordInContext.setValue(counter, forKeyPath: "id")
+                wordInContext.setValue(false, forKeyPath: "passed")
+                if (withDictionaryMigration) {
+                    for word in self.solvedWords {
+                        if(word.caseInsensitiveCompare(wordInDictionary.key) == ComparisonResult.orderedSame){
+                            wordInContext.setValue(true, forKeyPath: "passed")
+                        }
                     }
-                    
-                    self.words.append(wordInContext as! Word)
-                
-                    counter += 1
                 }
-                self.solvedWords = []
-            } catch let error as NSError {
-                print(error)
+                    
+                self.words.append(wordInContext as! Word)
+                
+                counter += 1
             }
             
             do {
                 try managedContext.save()
-                if let path = Bundle.main.path(forResource: self.dictionaryFilename, ofType: self.dictionaryExtension) {
-                    do {
-                        try FileManager.default.removeItem(atPath: path)
-                    } catch let error{
-                        print(error.localizedDescription)
-                    }
-                } else {
-                    print("Invalid filename/path.")
-                }
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
+            
+            self.solvedWords = []
+            
+            
+            if let path = Bundle.main.path(forResource: self.dictionaryFilename, ofType: self.dictionaryExtension) {
+                do {
+                    try FileManager.default.removeItem(atPath: path)
+                } catch let error{
+                    print(error.localizedDescription)
+                }
+            } else {
+                print("Invalid filename/path.")
+            }
+            
+            self.setWordsCompletedLabel()
             self.setUp()
+        }
+    }
+    
+    func resetButtons() {
+        var colorArray = [UIColor.blue, UIColor.orange, UIColor.purple, UIColor.red]
+        self.showButtons()
+        
+        DispatchQueue.main.async {
+            
+            self.buttonA.translatesAutoresizingMaskIntoConstraints = false
+            self.buttonB.translatesAutoresizingMaskIntoConstraints = false
+            self.buttonC.translatesAutoresizingMaskIntoConstraints = false
+            self.buttonD.translatesAutoresizingMaskIntoConstraints = false
+            
+            self.view.layoutIfNeeded()
+            
+            self.animator.removeAllBehaviors()
+            
+            self.buttonA.backgroundColor = colorArray.remove(at:Int(arc4random_uniform(UInt32(colorArray.count))))
+            self.buttonB.backgroundColor = colorArray.remove(at:Int(arc4random_uniform(UInt32(colorArray.count))))
+            self.buttonC.backgroundColor = colorArray.remove(at:Int(arc4random_uniform(UInt32(colorArray.count))))
+            self.buttonD.backgroundColor = colorArray.remove(at:Int(arc4random_uniform(UInt32(colorArray.count))))
+            self.buttonA.setTitleColor(UIColor.white, for:.normal)
+            self.buttonB.setTitleColor(UIColor.white, for:.normal)
+            self.buttonC.setTitleColor(UIColor.white, for:.normal)
+            self.buttonD.setTitleColor(UIColor.white, for:.normal)
+            self.buttonA.contentVerticalAlignment = .center
+            self.buttonB.contentVerticalAlignment = .center
+            self.buttonC.contentVerticalAlignment = .center
+            self.buttonD.contentVerticalAlignment = .center
+            self.buttonA.titleLabel?.numberOfLines = self.buttonLines
+            self.buttonB.titleLabel?.numberOfLines = self.buttonLines
+            self.buttonC.titleLabel?.numberOfLines = self.buttonLines
+            self.buttonD.titleLabel?.numberOfLines = self.buttonLines
+            self.buttonA.contentEdgeInsets.left = self.buttonLeftAndRightContentEdgeInset
+            self.buttonA.contentEdgeInsets.right = self.buttonLeftAndRightContentEdgeInset
+            self.buttonB.contentEdgeInsets.left = self.buttonLeftAndRightContentEdgeInset
+            self.buttonB.contentEdgeInsets.right = self.buttonLeftAndRightContentEdgeInset
+            self.buttonC.contentEdgeInsets.left = self.buttonLeftAndRightContentEdgeInset
+            self.buttonC.contentEdgeInsets.right = self.buttonLeftAndRightContentEdgeInset
+            self.buttonD.contentEdgeInsets.left = self.buttonLeftAndRightContentEdgeInset
+            self.buttonD.contentEdgeInsets.right = self.buttonLeftAndRightContentEdgeInset
+            self.buttonA.layer.cornerRadius = self.buttonCornerRadius
+            self.buttonB.layer.cornerRadius = self.buttonCornerRadius
+            self.buttonC.layer.cornerRadius = self.buttonCornerRadius
+            self.buttonD.layer.cornerRadius = self.buttonCornerRadius
         }
     }
     
@@ -334,11 +411,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     @IBAction func buttonPressed(_ sender: UIButton) {
         if (!showingRightAnswer) {
             if (self.words.filter({ $0.passed == false }).count > 0) {
-                if(sender.title(for: .normal) == self.word?.definition) {
-                    self.handleCorrectAnswer()
-                } else {
-                    self.handleWrongAnswer()
-                }
+                self.handleAnswer(correct: (sender.title(for: .normal) == self.currentWord?.definition))
             } else {
                 self.gameOver()
             }
@@ -348,19 +421,20 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         
     }
     
-    func handleCorrectAnswer() {
-        self.word?.passed = true
-        self.saveData()
-        self.wordsCompletedLabel.textColor = UIColor.black
-        wrongCounter = 0
-        self.playCorrectSound()
-        self.setUp()
-    }
-    
-    func handleWrongAnswer() {
-        self.playWrongSound()
-        self.hideWrongButtonsToShowAnswer()
-        self.wrongCounter += 1
+    func handleAnswer(correct: Bool) {
+        self.animateFeedback(correct: correct)
+        if (correct) {
+            self.currentWord?.passed = true
+            self.saveData()
+            wrongCounter = 0
+            self.playCorrectSound()
+            self.setUp()
+        } else {
+            self.playWrongSound()
+            self.hideWrongButtonsToShowAnswer()
+            self.animateAnswer()
+            self.wrongCounter += 1
+        }
     }
     
     //MARK: Ads
@@ -536,6 +610,10 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             self.buttonB.isHidden = false
             self.buttonC.isHidden = false
             self.buttonD.isHidden = false
+            self.buttonA.alpha = 1.0
+            self.buttonB.alpha = 1.0
+            self.buttonC.alpha = 1.0
+            self.buttonD.alpha = 1.0
         }
     }
     
@@ -549,29 +627,83 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     }
     
     func hideWrongButtonsToShowAnswer() {
-        let buttonAText = self.buttonA.title(for: .normal)
-        let buttonBText = self.buttonB.title(for: .normal)
-        let buttonCText = self.buttonC.title(for: .normal)
-        let buttonDText = self.buttonD.title(for: .normal)
-        let wordDefinition = self.word?.definition
-        
         DispatchQueue.main.async {
-            self.wordsCompletedLabel.textColor = UIColor.red
-            if(buttonAText != wordDefinition) {
-                self.buttonA.isHidden = true
-            }
-            if(buttonBText != wordDefinition) {
-                self.buttonB.isHidden = true
-            }
-            if(buttonCText != wordDefinition) {
-                self.buttonC.isHidden = true
-            }
-            if(buttonDText != wordDefinition) {
-                self.buttonD.isHidden = true
-            }
+            self.wordsCompletedLabel.textColor = self.wrongTextColor
+        }
+        var buttonsToDrop : [UIButton] = []
+        
+        if(self.buttonA != self.currentCorrectAnswerButton) {
+            buttonsToDrop.append(self.buttonA)
+        }
+        if(self.buttonB != self.currentCorrectAnswerButton) {
+            buttonsToDrop.append(self.buttonB)
+        }
+        if(self.buttonC != self.currentCorrectAnswerButton) {
+            buttonsToDrop.append(self.buttonC)
+        }
+        if(self.buttonD != self.currentCorrectAnswerButton) {
+            buttonsToDrop.append(self.buttonD)
         }
         
+        UIView.animate(withDuration: 0.5,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions.curveLinear,
+                                   animations: {
+                                    for button in buttonsToDrop {
+                                        button.alpha = 0
+                                    }
+        }, completion: nil)
+        
+        self.gravity = UIGravityBehavior(items: buttonsToDrop)
+        self.animator.addBehavior(gravity)
+        
         self.showingRightAnswer = true
+    }
+    
+    func animateAnswer() {
+        self.view.bringSubview(toFront: self.currentCorrectAnswerButton)
+        self.wordLabel.translatesAutoresizingMaskIntoConstraints = true
+        self.currentCorrectAnswerButton.translatesAutoresizingMaskIntoConstraints = true
+        UIView.animate(withDuration: 0.5, animations:{
+            self.view.layoutIfNeeded()
+            self.currentCorrectAnswerButton.contentVerticalAlignment = .top
+            self.currentCorrectAnswerButton.layer.cornerRadius = self.defaultCornerRadius
+            self.currentCorrectAnswerButton.backgroundColor = nil
+            self.currentCorrectAnswerButton.titleLabel?.numberOfLines = self.buttonLines * self.buttonLinesMultiplier
+            self.currentCorrectAnswerButton.contentEdgeInsets.left = self.defaultContentEdgeInset
+            self.currentCorrectAnswerButton.contentEdgeInsets.right = self.defaultContentEdgeInset
+            self.currentCorrectAnswerButton.setTitle(self.currentWord?.definition, for: .normal)
+            self.currentCorrectAnswerButton.setTitleColor(UIColor.black, for: .normal)
+            self.currentCorrectAnswerButton.frame = CGRect(x: self.view.frame.origin.x,
+                                                           y: (self.wordLabel.frame.origin.y + self.wordLabel.frame.size.height),
+                                                           width: self.view.frame.size.width,
+                                                           height: self.view.frame.size.height - (self.wordLabel.frame.origin.y + self.wordLabel.frame.size.height))
+        })
+    }
+    
+    func animateFeedback(correct: Bool) {
+        DispatchQueue.main.async {
+            if (correct) {
+                let animation = CATransition()
+                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                animation.type = kCATransitionFade
+                animation.duration = self.textFadeOutDuration
+                self.wordsCompletedLabel.layer.add(animation, forKey: kCATransitionFade)
+                self.wordsCompletedLabel.text = self.correctText
+                self.wordsCompletedLabel.textColor = self.correctTextColor
+            } else {
+                let animation = CATransition()
+                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                animation.type = kCATransitionFade
+                animation.duration = self.textFadeOutDuration
+                self.wordsCompletedLabel.layer.add(animation, forKey: kCATransitionFade)
+                self.wordsCompletedLabel.text = self.wrongText
+                self.wordsCompletedLabel.textColor = self.wrongTextColor
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                self.setWordsCompletedLabel()
+            })
+        }
     }
     
     func playCorrectSound() {
@@ -629,12 +761,33 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
                 self.wrongCounter = 0
             }
             
-            self.showButtons()
-            
             self.setUp()
             
             self.showingRightAnswer = false
         }
     }
-
+    
+    func deleteWords() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        for managedObject in self.words {
+            let managedObjectData:NSManagedObject = managedObject as NSManagedObject
+            managedContext.delete(managedObjectData)
+        }
+    }
+    
+    func setWordsCompletedLabel() {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        let formattedWordsCount = numberFormatter.string(from: NSNumber(value:self.words.count))
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionFade
+        animation.duration = self.textFadeInDuration
+        self.wordsCompletedLabel.layer.add(animation, forKey: kCATransitionFade)
+        DispatchQueue.main.async {
+            self.wordsCompletedLabel.textColor = UIColor.black
+            self.wordsCompletedLabel.text = "\(self.words.count - self.words.filter({ $0.passed == false }).count) of " + formattedWordsCount! + " correct"
+        }
+    }
 }

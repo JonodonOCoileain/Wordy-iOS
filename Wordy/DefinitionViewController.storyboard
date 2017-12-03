@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipU-ur-9hl">
-                                <rect key="frame" x="16" y="20" width="25" height="25"/>
+                                <rect key="frame" x="342" y="20" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="L1a-A0-Rt2"/>
                                     <constraint firstAttribute="height" constant="25" id="e7D-0c-3dV"/>
@@ -35,9 +35,9 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h96-sc-b6T">
-                                <rect key="frame" x="16" y="120" width="343" height="527"/>
+                                <rect key="frame" x="16" y="95" width="343" height="552"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -45,12 +45,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="h96-sc-b6T" firstAttribute="leading" secondItem="7aJ-f3-3z4" secondAttribute="leading" constant="16" id="DXp-ON-CKj"/>
-                            <constraint firstItem="ipU-ur-9hl" firstAttribute="leading" secondItem="7aJ-f3-3z4" secondAttribute="leading" constant="16" id="MbU-u1-RPU"/>
                             <constraint firstItem="h96-sc-b6T" firstAttribute="trailing" secondItem="7aJ-f3-3z4" secondAttribute="trailing" constant="-16" id="OJR-k6-ARm"/>
                             <constraint firstItem="h96-sc-b6T" firstAttribute="centerX" secondItem="zkS-dL-Yfu" secondAttribute="centerX" id="Rbx-zy-uz3"/>
                             <constraint firstItem="7aJ-f3-3z4" firstAttribute="bottom" secondItem="h96-sc-b6T" secondAttribute="bottom" constant="20" id="Uno-RW-HuN"/>
                             <constraint firstItem="ipU-ur-9hl" firstAttribute="top" secondItem="7aJ-f3-3z4" secondAttribute="top" id="hxm-cy-IKy"/>
-                            <constraint firstItem="h96-sc-b6T" firstAttribute="top" secondItem="ipU-ur-9hl" secondAttribute="bottom" constant="75" id="jde-3i-cSC"/>
+                            <constraint firstItem="h96-sc-b6T" firstAttribute="top" secondItem="ipU-ur-9hl" secondAttribute="bottom" constant="50" id="jde-3i-cSC"/>
+                            <constraint firstItem="7aJ-f3-3z4" firstAttribute="trailing" secondItem="ipU-ur-9hl" secondAttribute="trailing" constant="8" id="qs7-5S-nEv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7aJ-f3-3z4"/>
                     </view>
