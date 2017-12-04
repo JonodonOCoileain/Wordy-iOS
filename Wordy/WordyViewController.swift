@@ -265,8 +265,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             default: break
                 
             }
-            
-            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
+            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count)), animated: true)
 
             self.wordLabel.isHidden = false
             
@@ -744,7 +743,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             self.buttonC.isHidden = true
             self.buttonD.isHidden = true
             
-            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count) * 100), animated: true)
+            self.progressView.setProgress((Float(self.words.filter({ $0.passed == true }).count)/Float(self.words.count)), animated: true)
             
             self.wordsCompletedLabel.text  = "You are a Word Wizard!"
         }
