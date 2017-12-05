@@ -50,7 +50,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     var words:[Word] = []
     var solvedWords:[String] = []
     
-    var currentWord:Word?
+    var currentWord:Word? = Word()
     var currentIndex = -1
     var currentCorrectAnswerButton:UIButton!
     
@@ -83,14 +83,14 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let error {
             print(error.localizedDescription)
         }
-        
+      
         if(traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: view)
         }
@@ -219,13 +219,20 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         
         
         DispatchQueue.main.async {
-            self.wordLabel.text = self.currentWord?.word
+            let animation = CATransition()
+            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            animation.type = kCATransitionFade
+            animation.duration = self.textFadeOutDuration
+            self.wordLabel.layer.add(animation, forKey: kCATransitionFade)
+            if (self.currentWord?.word != nil) {
+                self.wordLabel.text = self.currentWord?.word
+            }
             self.resetButtons()
             switch (randomButton) {
             case 0:
                 self.currentCorrectAnswerButton = self.buttonA
                 self.buttonA.setTitle(self.currentWord?.definition!,
-                                                for: UIControlState.normal)
+                                                for: .normal)
                 self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                             for: .normal)
                 self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
@@ -235,7 +242,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             case 1:
                     self.currentCorrectAnswerButton = self.buttonB
                     self.buttonB.setTitle(self.currentWord?.definition!,
-                                      for: UIControlState.normal)
+                                      for: .normal)
                 self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
                 self.buttonC.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
@@ -245,7 +252,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             case 2:
                     self.currentCorrectAnswerButton = self.buttonC
                     self.buttonC.setTitle(self.currentWord?.definition!,
-                                      for: UIControlState.normal)
+                                      for: .normal)
                 self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
                 self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
@@ -255,7 +262,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
             case 3:
                     self.currentCorrectAnswerButton = self.buttonD
                     self.buttonD.setTitle(self.currentWord?.definition!,
-                                      for: UIControlState.normal)
+                                      for: .normal)
                 self.buttonA.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
                                       for: .normal)
                 self.buttonB.setTitle(self.words[Int(arc4random_uniform(UInt32(self.words.count)))].definition!,
