@@ -206,17 +206,15 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     }
     
     @objc func setUp() {
-        let randomInt = Int(arc4random_uniform(UInt32(self.words.filter({ $0.passed == false }).count)))
         
-        self.currentWord = self.words.filter({ $0.passed == false })[randomInt]
-        self.currentIndex = randomInt
+        self.currentIndex = Int(arc4random_uniform(UInt32(self.words.filter({ $0.passed == false }).count)))
+        self.currentWord = self.words.filter({ $0.passed == false })[self.currentIndex]
         
         DispatchQueue.global(qos: .background).async {
             self.saveData()
         }
         
         let randomButton = Int(arc4random_uniform(4))
-        
         
         DispatchQueue.main.async {
             let animation = CATransition()
