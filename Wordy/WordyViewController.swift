@@ -191,8 +191,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         }
         self.bannerView.rootViewController = self
         self.bannerView.load(GADRequest())
-        let request = GADRequest()
         
+        let request = GADRequest()
         self.interstitial.delegate = self
         self.interstitial.load(request)
         self.interstitial = createAndLoadInterstitial()
