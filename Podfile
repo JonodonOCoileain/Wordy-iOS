@@ -1,22 +1,16 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+PODS:
+  - Google-Mobile-Ads-SDK (7.26.0)
 
-target 'Wordy' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+DEPENDENCIES:
+  - Google-Mobile-Ads-SDK
 
-  # Pods for Wordy
-  
-  pod 'Google-Mobile-Ads-SDK'
+SPEC REPOS:
+  trunk:
+    - Google-Mobile-Ads-SDK
 
-  target 'WordyTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+SPEC CHECKSUMS:
+  Google-Mobile-Ads-SDK: 22d4a6fe18d526adcc12a86d8cc2d53872700966
 
-  target 'WordyUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+PODFILE CHECKSUM: 550c5e2cc0ef8eaf91ebd9cd24d595127a7be8fe
 
-end
+COCOAPODS: 1.16.2

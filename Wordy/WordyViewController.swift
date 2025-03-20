@@ -8,10 +8,9 @@
 
 import UIKit
 import CoreData
-import GoogleMobileAds
 import AVFoundation
 
-class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate, XMLParserDelegate  {
+class WordyViewController: UIViewController, /*GADBannerViewDelegate, GADInterstitialDelegate, GADAppEventDelegate, */ UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate, XMLParserDelegate  {
     
     #if DEBUG
         let debug = true
@@ -73,8 +72,8 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     
     //MARK: Advertisement Properties
     
-    var bannerView: GADBannerView!
-    var interstitial: GADInterstitial!
+   // var bannerView: GADBannerView!
+   // var interstitial: GADInterstitial!
     var testBannerID = "ca-app-pub-3940256099942544/2934735716"
     var testInterstitialID = "ca-app-pub-3940256099942544/4411468910"
     var bannerID = "ca-app-pub-5330908290289818/7870941385"
@@ -178,7 +177,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         DispatchQueue.main.async {
             self.logoView.isHidden = true
         }
-        self.bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        /*self.bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         self.bannerView.delegate = self
         
         addBannerViewToView(self.bannerView)
@@ -191,12 +190,12 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         }
         self.bannerView.rootViewController = self
         self.bannerView.load(GADRequest())
-        
+    
         let request = GADRequest()
         self.interstitial.delegate = self
         self.interstitial.load(request)
         self.interstitial = createAndLoadInterstitial()
-        
+        */
         self.animator = UIDynamicAnimator(referenceView: view)
     }
     
@@ -442,7 +441,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     }
     
     //MARK: Ads
-    func addBannerViewToView(_ bannerView: GADBannerView) {
+    /*func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         if #available(iOS 11.0, *) {
@@ -569,7 +568,7 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     /// (such as the App Store), backgrounding the current app.
     func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
         print("interstitialWillLeaveApplication")
-    }
+    }*/
     //MARK: Definition View
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         let storyboard = UIStoryboard(name: "DefinitionViewController", bundle: nil)
@@ -736,9 +735,9 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
         }
     }
     
-    @objc func presentInterstitial() {
-        self.interstitial.present(fromRootViewController: self)
-    }
+    //@objc func presentInterstitial() {
+    //    self.interstitial.present(fromRootViewController: self)
+   // }
     
     func gameOver() {
         DispatchQueue.main.async {
@@ -757,11 +756,11 @@ class WordyViewController: UIViewController, GADBannerViewDelegate, GADInterstit
     @objc func screenTapped() {
         if (self.showingRightAnswer) {
             if (self.wrongCounter >= self.wrongBeforeAd) {
-                if self.interstitial.isReady {
-                    self.presentInterstitial()
-                } else {
-                    print("Ad wasn't ready")
-                }
+                //if self.interstitial.isReady {
+                //    self.presentInterstitial()
+                //} else {
+                //    print("Ad wasn't ready")
+               // }
                 self.wrongCounter = 0
             }
             
